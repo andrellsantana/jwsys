@@ -37,7 +37,9 @@ O problema não é capacidade: é **custo fixo mínimo** e **região no Brasil**
 - **Testes:** Vitest (unidade), pgTAP (RLS e regras SQL), Playwright (E2E).
 - **CI/CD:** GitHub Actions.
 
-## Notificações
+## Notificações — ADIADO (fora do MVP, segunda etapa)
+Decisão: o MVP não terá notificações. A proposta abaixo fica registrada para ser retomada na segunda etapa.
+
 | Canal | Custo | Uso |
 |---|---|---|
 | **Web Push (PWA)** | Grátis | Lembrete do prazo do dia 6 e mudança de status do relatório. No iPhone, exige o app instalado na tela inicial (iOS 16.4+). |
