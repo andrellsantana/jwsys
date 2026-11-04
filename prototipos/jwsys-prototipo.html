@@ -1,0 +1,465 @@
+<title>JWSys Protótipo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap">
+<style>
+/* Layout: barra de papel no topo + conteúdo em coluna única no celular, grade em telas largas. A "folha" do formulário é sempre papel branco. */
+:root{
+  --bg:#f3f5f7; --surface:#ffffff; --surface-2:#e9edf1; --fg:#17212b; --muted:#56636f; --line:#cfd6dd;
+  --accent:#1d5576; --accent-fg:#ffffff; --accent-soft:#dbe8f0;
+  --ok:#1f7a45; --ok-soft:#dcefe3; --warn:#9a6200; --warn-soft:#f6ead2; --bad:#a33131; --bad-soft:#f5dddd;
+  --paper:#ffffff; --paper-ink:#111111; --paper-line:#7d7d7d;
+  --f-ui:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-paper:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --fs:16px; --radius:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11171d; --surface:#1a222a; --surface-2:#232d37; --fg:#e7edf2; --muted:#a3b0bc; --line:#33404c;
+  --accent:#7db8db; --accent-fg:#0d1a22; --accent-soft:#1d3444;
+  --ok:#6fcf97; --ok-soft:#173326; --warn:#e6b45a; --warn-soft:#3a2d12; --bad:#ef8a8a; --bad-soft:#3d1c1c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11171d; --surface:#1a222a; --surface-2:#232d37; --fg:#e7edf2; --muted:#a3b0bc; --line:#33404c;
+  --accent:#7db8db; --accent-fg:#0d1a22; --accent-soft:#1d3444;
+  --ok:#6fcf97; --ok-soft:#173326; --warn:#e6b45a; --warn-soft:#3a2d12; --bad:#ef8a8a; --bad-soft:#3d1c1c; color-scheme:dark}
+:root.contraste{--fg:#000;--muted:#1a1a1a;--line:#000;--accent:#003a5c;--bg:#fff;--surface:#fff;--surface-2:#eee}
+:root.contraste[data-theme="dark"]{--fg:#fff;--muted:#f0f0f0;--line:#fff;--accent:#9fd8ff;--accent-fg:#000;--bg:#000;--surface:#000;--surface-2:#111}
+:root.fonte-grande{--fs:20px}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-ui);font-size:var(--fs);line-height:1.45;margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;padding-block:10px;max-width:1200px;margin:0 auto}
+.brand{font-weight:700;letter-spacing:.02em;margin-right:auto}
+.brand small{display:block;font-weight:400;color:var(--muted);font-size:.75em;letter-spacing:0}
+.roles{display:flex;gap:4px;flex-wrap:wrap}
+.roles a{padding:6px 12px;border-radius:999px;text-decoration:none;color:var(--fg);border:1px solid var(--line);font-size:.875em}
+.roles a[aria-current="page"]{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+main.wrap{max-width:1200px;margin:0 auto;padding-block:20px 64px}
+h1{font-size:1.5em;margin:0 0 4px;text-wrap:balance}
+h2{font-size:1.15em;margin:0 0 10px;text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 16px}
+.proto{font-size:.8em;color:var(--muted);border:1px dashed var(--line);border-radius:var(--radius);padding:8px 12px;margin-bottom:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:8px 16px;border-radius:var(--radius);border:1px solid var(--line);background:var(--surface);cursor:pointer;text-decoration:none;color:var(--fg)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-fg);font-weight:700}
+.btn.ok{background:var(--ok);border-color:var(--ok);color:#fff;font-weight:700}
+.btn.bad{border-color:var(--bad);color:var(--bad)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.stack{display:flex;flex-direction:column;gap:12px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:4px;padding:2px 10px;border-radius:999px;font-size:.8em;font-weight:700;white-space:nowrap}
+.pill.ok{background:var(--ok-soft);color:var(--ok)} .pill.warn{background:var(--warn-soft);color:var(--warn)} .pill.bad{background:var(--bad-soft);color:var(--bad)} .pill.info{background:var(--accent-soft);color:var(--accent)}
+.num{font-variant-numeric:tabular-nums}
+/* ---------- Publicador ---------- */
+.pub{max-width:560px;margin:0 auto}
+.hello{font-size:1.6em;font-weight:700;margin:4px 0 2px}
+.bigmenu{display:grid;gap:12px;margin-top:20px}
+.bigmenu button{min-height:84px;text-align:left;padding:16px 20px;border-radius:14px;border:1px solid var(--line);background:var(--surface);cursor:pointer;display:flex;flex-direction:column;gap:2px}
+.bigmenu button b{font-size:1.2em}
+.bigmenu button span{color:var(--muted);font-size:.9em}
+.bigmenu button.main{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+.bigmenu button.main span{color:var(--accent-fg);opacity:.85}
+.back{background:none;border:0;color:var(--accent);cursor:pointer;padding:8px 0;min-height:44px;font-weight:700}
+/* Folha S-4 (réplica esquemática; no sistema real o fundo é o PDF oficial) */
+.sheet{background:var(--paper);color:var(--paper-ink);font-family:var(--f-paper);border:1px solid #b9b9b9;box-shadow:0 1px 3px rgba(0,0,0,.18);aspect-ratio:113/85;width:100%;max-width:100%;padding:4.5% 5.5%;display:flex;flex-direction:column;font-size:clamp(11px,3.1vw,17px);color-scheme:light}
+.sheet h3{font-family:var(--f-paper);text-align:center;font-weight:700;letter-spacing:.04em;margin:0 0 4%;font-size:1.05em}
+.sheet .ln{display:flex;align-items:flex-end;gap:.5em;margin-bottom:2.4%}
+.sheet .ln label{white-space:nowrap}
+.sheet .fill{flex:1;border:0;border-bottom:1px solid var(--paper-line);background:transparent;font-family:var(--f-ui);color:#0b3a8f;font-size:1em;padding:0 .25em;min-width:0;cursor:pointer;text-align:left;min-height:1.6em}
+.sheet table{border-collapse:collapse;width:100%;font-size:.92em;margin-top:1%}
+.sheet td{border:1px solid var(--paper-line);padding:.35em .5em;vertical-align:middle}
+.sheet td.v{width:22%;text-align:center}
+.sheet td.v button{width:100%;min-height:1.8em;border:0;background:transparent;font-family:var(--f-ui);color:#0b3a8f;font-size:1.1em;font-weight:700;cursor:pointer}
+.sheet .chk{width:1.2em;height:1.2em;border:1.5px solid #333;display:inline-flex;align-items:center;justify-content:center;font-family:var(--f-ui);color:#0b3a8f;font-weight:700;vertical-align:middle;cursor:pointer;background:transparent;padding:0}
+.sheet .obs{flex:1;margin-top:2%;display:flex;flex-direction:column}
+.sheet .obs textarea{flex:1;width:100%;border:1px solid var(--paper-line);background:transparent;font-family:var(--f-ui);color:#0b3a8f;resize:none;font-size:.95em;padding:.25em}
+.sheet .code{font-size:.7em;margin-top:1.5%}
+.sheet .is-off{color:#9a9a9a}
+.extras{margin-top:16px}
+.extras h2{font-size:1em;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.field{display:flex;flex-direction:column;gap:4px}
+.field input,.field select,.field textarea{min-height:44px;border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:8px 10px}
+.toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;border-bottom:1px solid var(--line)}
+.toggle:last-child{border-bottom:0}
+.toggle input{width:26px;height:26px;accent-color:var(--accent)}
+.sheetbar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -6px 24px rgba(0,0,0,.18);padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));padding-top:16px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sheetbar .inner{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.stepper{display:grid;grid-template-columns:72px 1fr 72px;gap:12px;align-items:center}
+.stepper button{height:72px;border-radius:14px;border:1px solid var(--line);background:var(--surface-2);font-size:2em;font-weight:700;cursor:pointer}
+.stepper input{height:72px;text-align:center;font-size:2.2em;font-weight:700;border:2px solid var(--accent);border-radius:14px;background:var(--surface);width:100%;min-width:0}
+.confirm{text-align:center;padding:40px 16px}
+.confirm .mark{width:96px;height:96px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:52px;font-weight:700}
+.confirm .mark.ok{background:var(--ok-soft);color:var(--ok)} .confirm .mark.wait{background:var(--warn-soft);color:var(--warn)}
+.list{display:flex;flex-direction:column;gap:8px}
+.item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
+.item .why{color:var(--bad);font-size:.85em}
+/* ---------- Painéis ---------- */
+.headline{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;margin-bottom:16px}
+.count{font-size:.9em;color:var(--muted)}
+.count b{font-size:1.6em;color:var(--fg)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:2px}
+.kpi[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.kpi b{font-size:1.6em;font-variant-numeric:tabular-nums}
+.kpi span{color:var(--muted);font-size:.85em}
+.kpi.ok b{color:var(--ok)} .kpi.bad b{color:var(--bad)} .kpi.warn b{color:var(--warn)} .kpi.info b{color:var(--accent)}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:16px;align-items:start}
+.pend{display:flex;flex-direction:column;gap:10px}
+.pcard{border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:var(--radius);padding:12px;background:var(--surface);display:flex;flex-direction:column;gap:8px}
+.pcard.self{border-left-color:var(--accent)}
+.pcard .meta{color:var(--muted);font-size:.85em}
+.diff{display:grid;grid-template-columns:auto 1fr 1fr;gap:2px 12px;font-size:.9em}
+.diff .h{color:var(--muted);font-size:.8em}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.filters select,.filters input{min-height:40px;border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:6px 8px;min-width:0;flex:1 1 140px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+table.grid{border-collapse:collapse;width:100%;font-size:.9em}
+table.grid th,table.grid td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+table.grid th{font-size:.78em;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--surface-2)}
+table.grid td.n{text-align:right;font-variant-numeric:tabular-nums}
+.closed{background:var(--warn-soft);color:var(--warn);border-radius:var(--radius);padding:10px 12px;margin-bottom:12px;font-weight:700}
+.timeline{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin-bottom:18px;position:relative}
+.tl{padding:10px 8px 0;border-top:4px solid var(--line);font-size:.85em}
+.tl b{display:block;font-size:1.05em}
+.tl span{color:var(--muted)}
+.tl.done{border-top-color:var(--ok)} .tl.now{border-top-color:var(--accent)}
+.tl.now b::after{content:" · hoje";color:var(--accent);font-weight:400}
+.groups{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.gcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px;display:flex;flex-direction:column;gap:6px}
+.bar{height:8px;background:var(--surface-2);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent)}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:12px}
+.tabs button{border:0;background:none;padding:10px 12px;cursor:pointer;border-bottom:3px solid transparent;color:var(--muted)}
+.tabs button[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--accent);font-weight:700}
+.tabs button .pill{margin-left:4px}
+.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:20px}
+nav.side{display:flex;flex-direction:column;gap:2px;font-size:.92em}
+nav.side .grp{font-size:.72em;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:12px 8px 4px}
+nav.side button{text-align:left;border:0;background:none;padding:8px 10px;border-radius:8px;cursor:pointer;min-height:40px}
+nav.side button[aria-current="true"]{background:var(--accent-soft);color:var(--accent);font-weight:700}
+.prog{display:flex;gap:4px}
+.prog i{width:28px;height:8px;border-radius:4px;background:var(--surface-2)}
+.prog i.on{background:var(--ok)}
+.faixa{font-weight:700}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:999px;z-index:30;font-size:.9em;max-width:calc(100% - 32px)}
+@media (max-width:860px){
+  .cols,.layout{grid-template-columns:minmax(0,1fr)}
+  .kpis,.groups{grid-template-columns:repeat(2,minmax(0,1fr))}
+  nav.side{flex-direction:row;overflow-x:auto;gap:4px;padding-bottom:4px}
+  nav.side .grp{display:none}
+  nav.side button{white-space:nowrap;border:1px solid var(--line)}
+  .timeline{grid-template-columns:repeat(5,minmax(0,1fr));font-size:.85em}
+}
+@media (max-width:640px){
+  table.grid.cards thead{display:none}
+  table.grid.cards,table.grid.cards tbody,table.grid.cards tr,table.grid.cards td{display:block;width:100%}
+  table.grid.cards tr{border-bottom:1px solid var(--line);padding:8px 4px}
+  table.grid.cards td{border:0;padding:3px 10px;white-space:normal;display:flex;justify-content:space-between;gap:12px;text-align:right}
+  table.grid.cards td::before{content:attr(data-l);color:var(--muted);font-size:.85em;text-align:left}
+  table.grid.cards td.n{text-align:right}
+  .tablewrap{overflow-x:visible}
+  .tl b{font-size:.95em} .tl span{display:none}
+}
+@media (prefers-reduced-motion:no-preference){.sheetbar{animation:up .18s ease-out}@keyframes up{from{transform:translateY(30px);opacity:.6}}}
+</style>
+
+<header class="top"><div class="wrap">
+  <div class="brand">JWSys <small>Protótipo navegável · dados fictícios</small></div>
+  <nav class="roles" aria-label="Perfil">
+    <a href="#publicador">Publicador</a><a href="#sg">Superintendente</a><a href="#secretario">Secretário</a><a href="#cs">Comissão</a>
+  </nav>
+</div></header>
+<main class="wrap" id="app"></main>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const app=$('#app');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function toast(t){const d=document.createElement('div');d.className='toast';d.setAttribute('role','status');d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2600)}
+function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem('jwsys-'+k));localStorage.setItem('jwsys-'+k,JSON.stringify(v))}catch(e){return null}}
+
+/* ----- Aparência (desativada por padrão) ----- */
+const ap=Object.assign({grande:false,contraste:false,escuro:false},store('ap')||{});
+function applyAp(){const r=document.documentElement;r.classList.toggle('fonte-grande',ap.grande);r.classList.toggle('contraste',ap.contraste);if(ap.escuro)r.setAttribute('data-theme','dark');else if(r.getAttribute('data-theme')==='dark'&&ap._set)r.removeAttribute('data-theme');}
+applyAp();
+
+/* ----- Dados fictícios ----- */
+const HOJE='04/11/2026';
+const pubs=[
+ {n:'Maria Oliveira',cat:'Publicador',st:'Regular'},{n:'João Batista',cat:'Pioneiro regular',st:'Regular'},
+ {n:'Cláudia Ramos',cat:'Publicador',st:'Irregular'},{n:'Roberto Lima',cat:'Pioneiro auxiliar',st:'Regular'},
+ {n:'Ana Souza',cat:'Publicador',st:'Regular'},{n:'Pedro Alves',cat:'Publicador',st:'Inativo'},
+ {n:'Lúcia Martins',cat:'Publicador',st:'Regular'},{n:'Carlos Mendes (você)',cat:'Publicador',st:'Regular'}];
+let rows=[
+ {p:'Maria Oliveira',m:'10/2026',part:true,est:1,h:'',cr:'',obs:'',tipo:'No prazo',est_:'Aceito',rec:'02/11 19:40'},
+ {p:'João Batista',m:'10/2026',part:true,est:2,h:48,cr:6,obs:'A-20: 9h; crédito 6h',tipo:'No prazo',est_:'Aceito',rec:'01/11 08:12'},
+ {p:'Roberto Lima',m:'10/2026',part:true,est:0,h:31,cr:'',obs:'',tipo:'No prazo',est_:'Aceito',rec:'03/11 21:05'},
+ {p:'Ana Souza',m:'10/2026',part:true,est:0,h:'',cr:'',obs:'',tipo:'No prazo',est_:'Aceito',rec:'04/11 07:30'},
+ {p:'Lúcia Martins',m:'10/2026',part:true,est:1,h:'',cr:'',obs:'',tipo:'Em nome de',est_:'Aceito',rec:'03/11 10:00'},
+ {p:'Maria Oliveira',m:'09/2026',part:true,est:1,h:'',cr:'',obs:'',tipo:'No prazo',est_:'Aceito',rec:'05/10 18:22'},
+ {p:'Pedro Alves',m:'09/2026',part:false,est:'',h:'',cr:'',obs:'',tipo:'—',est_:'Não relatou',rec:'—'},
+ {p:'Silvia Costa (saiu do grupo)',m:'08/2026',part:true,est:0,h:'',cr:'',obs:'',tipo:'No prazo',est_:'Aceito',rec:'04/09 12:00'}];
+let pend=[
+ {id:1,p:'Cláudia Ramos',m:'09/2026',tipo:'Retroativo',info:'Recebido em 03/11 · mês de setembro',d:{Participou:'Sim',Estudos:'0'}},
+ {id:2,p:'Roberto Lima',m:'10/2026',tipo:'Reenvio',info:'Recebido em 04/11 09:14',diff:[['Horas','31','33'],['Estudos','0','1']]},
+ {id:3,p:'"Ana S." (não identificado)',m:'10/2026',tipo:'Conciliação',info:'Enviado pelo link do grupo · 04/11 07:28',concil:true},
+ {id:4,p:'Carlos Mendes (você)',m:'09/2026',tipo:'Em atraso',info:'Autoaprovação · recebido em 08/10',self:true,d:{Participou:'Sim',Estudos:'1'}}];
+
+/* ----- Estado do publicador ----- */
+const S=Object.assign({part:true,est:1,h:0,obs:'',regular:false,offline:false},store('s4')||{});
+const meus=[
+ {m:'Outubro/2026',st:'ok',t:'Aceito',d:'02/11/2026'},{m:'Setembro/2026',st:'ok',t:'Aceito',d:'05/10/2026'},
+ {m:'Agosto/2026',st:'warn',t:'Aguardando aprovação',d:'reenvio em 12/09/2026'},{m:'Julho/2026',st:'bad',t:'Recusado',d:'08/08/2026',why:'Mês já enviado; confirme as horas com o superintendente.'}];
+
+let sub='home';
+function route(){
+  const h=(location.hash||'#publicador').slice(1);
+  document.querySelectorAll('.roles a').forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+h?'page':'false'));
+  closeBar();
+  if(h==='sg')renderSG(); else if(h==='secretario')renderSec(); else if(h==='cs')renderCS(); else {sub=sub||'home';renderPub()}
+  window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',()=>{sub='home';route()});
+
+/* =================== PUBLICADOR =================== */
+function renderPub(){
+  let h='<div class="pub">';
+  if(sub==='home'){
+    h+=`<p class="sub">Grupo 2 · aparelho ativado</p><div class="hello">Olá, Maria</div>
+    <p class="sub">O relatório de <b>Outubro/2026</b> pode ser enviado até <b>06/11</b>.</p>
+    <div class="bigmenu">
+      <button class="main" data-go="s4"><b>Enviar relatório do mês</b><span>Outubro/2026</span></button>
+      <button data-go="meus"><b>Meus relatórios</b><span>Veja se foram aceitos</span></button>
+      <button data-go="ajuda"><b>Ajuda</b><span>Passo a passo e aparência</span></button>
+    </div>`;
+  } else if(sub==='s4'){
+    const showH=S.regular;
+    h+=`<button class="back" data-go="home">← Início</button><h1>Relatório de Outubro/2026</h1>
+    <p class="sub">Toque nos campos azuis para preencher.</p>
+    <div class="sheet" role="group" aria-label="Formulário S-4">
+      <h3>RELATÓRIO DE SERVIÇO DE CAMPO</h3>
+      <div class="ln"><label>Nome:</label><span class="fill" style="cursor:default">Maria Oliveira</span></div>
+      <div class="ln"><label>Mês:</label><span class="fill" style="cursor:default">Outubro/2026</span></div>
+      <table><tbody>
+        <tr><td>Marque se você participou em alguma modalidade do ministério durante o mês</td><td class="v"><button class="chk" id="chk" aria-pressed="${S.part}" aria-label="Participou no ministério">${S.part?'✓':''}</button></td></tr>
+        <tr><td>Estudos bíblicos <small>(Quantidade de estudos diferentes dirigidos)</small></td><td class="v"><button id="f-est" aria-label="Estudos bíblicos: ${S.est}">${S.est}</button></td></tr>
+        <tr class="${showH?'':'is-off'}"><td>Horas <small>(Se for pioneiro auxiliar, regular ou especial, ou missionário em campo)</small></td><td class="v">${showH?`<button id="f-h" aria-label="Horas: ${S.h}">${S.h}</button>`:''}</td></tr>
+      </tbody></table>
+      <div class="obs"><label for="obs">Observações:</label><textarea id="obs" rows="2">${esc(S.obs)}</textarea></div>
+      <div class="code">S-4-T</div>
+    </div>
+    <p class="sub" style="font-size:.8em;margin-top:6px">No sistema, o fundo é o PDF oficial do repositório; aqui é uma réplica simplificada.</p>
+    <section class="extras panel stack" aria-label="Informações adicionais">
+      <h2>Fora do formulário</h2>
+      <div class="row" style="justify-content:space-between"><span>Grupo</span><b>Grupo 2</b></div>
+      ${S.regular?`<div class="field"><label for="cr">Crédito de horas (atividade aprovada)</label><input id="cr" inputmode="numeric" placeholder="0"></div>`:''}
+      <label class="toggle"><span>Estou enviando em nome de outra pessoa</span><input type="checkbox" id="emnome"></label>
+      <div class="field" id="emnome-box" hidden><label for="just">Justificativa (obrigatória)</label><input id="just" placeholder="Ex.: filho menor, sem celular"></div>
+      <details><summary style="cursor:pointer;color:var(--muted)">Simular no protótipo</summary>
+        <label class="toggle"><span>Sou pioneiro regular</span><input type="checkbox" id="simreg" ${S.regular?'checked':''}></label>
+        <label class="toggle"><span>Estou sem internet</span><input type="checkbox" id="simoff" ${S.offline?'checked':''}></label>
+      </details>
+    </section>
+    <div class="row" style="margin-top:16px"><button class="btn primary" id="send" style="flex:1;min-height:56px">Enviar relatório</button></div>`;
+  } else if(sub==='ok'){
+    h+= S.offline
+     ? `<div class="confirm"><div class="mark wait" aria-hidden="true">⏱</div><h1>Guardado</h1><p>Será enviado quando houver internet.</p><p class="sub">Outubro/2026 · guardado em ${HOJE} 20:14</p><button class="btn primary" data-go="home" style="min-height:56px;min-width:240px">Voltar ao início</button></div>`
+     : `<div class="confirm"><div class="mark ok" aria-hidden="true">✓</div><h1>Recebido</h1><p>Outubro/2026 · recebido em ${HOJE} às 20:14</p><p><span class="pill ok">Aceito</span></p><button class="btn primary" data-go="home" style="min-height:56px;min-width:240px">Voltar ao início</button></div>`;
+  } else if(sub==='meus'){
+    h+=`<button class="back" data-go="home">← Início</button><h1>Meus relatórios</h1><p class="sub">Ano de serviço 2027</p><div class="list">`+
+      meus.map(r=>`<div class="item"><div><b>${r.m}</b><div class="sub" style="margin:0;font-size:.85em">${r.d}</div>${r.why?`<div class="why">Motivo: ${esc(r.why)}</div>`:''}</div><span class="pill ${r.st}">${r.st==='ok'?'✓ ':r.st==='warn'?'⏳ ':'✗ '}${r.t}</span></div>`).join('')+`</div>`;
+  } else if(sub==='ajuda'){
+    h+=`<button class="back" data-go="home">← Início</button><h1>Ajuda</h1>
+    <div class="panel stack"><h2>Como enviar</h2><ol style="margin:0;padding-left:1.2em" class="stack"><li>Toque em <b>Enviar relatório do mês</b>.</li><li>Marque se participou do ministério.</li><li>Toque no número de estudos e use os botões + e −.</li><li>Toque em <b>Enviar relatório</b>.</li></ol>
+    <p class="sub" style="margin:0">Dúvidas: fale com o superintendente do seu grupo.</p></div>
+    <div class="panel" style="margin-top:12px"><h2>Aparência</h2>
+      <label class="toggle"><span>Fonte grande</span><input type="checkbox" id="ap-g" ${ap.grande?'checked':''}></label>
+      <label class="toggle"><span>Alto contraste</span><input type="checkbox" id="ap-c" ${ap.contraste?'checked':''}></label>
+      <label class="toggle"><span>Modo escuro</span><input type="checkbox" id="ap-e" ${ap.escuro?'checked':''}></label>
+    </div>`;
+  }
+  app.innerHTML=h+'</div>';
+  app.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{sub=b.dataset.go;renderPub();window.scrollTo(0,0)});
+  if(sub==='s4'){
+    $('#chk').onclick=()=>{S.part=!S.part;save();renderPub()};
+    $('#f-est').onclick=()=>openBar('est','Estudos bíblicos');
+    if($('#f-h'))$('#f-h').onclick=()=>openBar('h','Horas');
+    $('#obs').oninput=e=>{S.obs=e.target.value;save()};
+    $('#emnome').onchange=e=>{$('#emnome-box').hidden=!e.target.checked};
+    $('#simreg').onchange=e=>{S.regular=e.target.checked;save();renderPub()};
+    $('#simoff').onchange=e=>{S.offline=e.target.checked;save()};
+    $('#send').onclick=()=>{if($('#emnome').checked&&!$('#just').value.trim()){$('#just').focus();toast('Escreva a justificativa do envio em nome de outra pessoa.');return}sub='ok';renderPub();window.scrollTo(0,0)};
+  }
+  if(sub==='ajuda'){
+    const bind=(id,k)=>$(id).onchange=e=>{ap[k]=e.target.checked;ap._set=true;store('ap',ap);applyAp()};
+    bind('#ap-g','grande');bind('#ap-c','contraste');bind('#ap-e','escuro');
+  }
+}
+function save(){store('s4',S)}
+let bar=null;
+function openBar(k,label){
+  closeBar();
+  bar=document.createElement('div');bar.className='sheetbar';bar.setAttribute('role','dialog');bar.setAttribute('aria-label',label);
+  bar.innerHTML=`<div class="inner"><div class="row" style="justify-content:space-between"><b>${label}</b><span class="sub" style="margin:0">Use + e − ou digite</span></div>
+  <div class="stepper"><button id="mn" aria-label="Diminuir">−</button><input id="sv" inputmode="numeric" pattern="[0-9]*" value="${S[k]}" aria-label="${label}"><button id="pl" aria-label="Aumentar">+</button></div>
+  <button class="btn primary" id="okb" style="min-height:56px">Pronto</button></div>`;
+  document.body.appendChild(bar);
+  const sv=bar.querySelector('#sv');
+  const set=v=>{v=Math.max(0,Math.min(999,parseInt(v||0,10)||0));S[k]=v;sv.value=v;const f=$(k==='est'?'#f-est':'#f-h');if(f)f.textContent=v;save()};
+  bar.querySelector('#mn').onclick=()=>set(S[k]-1);
+  bar.querySelector('#pl').onclick=()=>set(S[k]+1);
+  sv.oninput=()=>set(sv.value.replace(/\D/g,''));
+  bar.querySelector('#okb').onclick=()=>{closeBar();renderPub()};
+  bar.querySelector('#pl').focus();
+}
+function closeBar(){if(bar){bar.remove();bar=null}}
+
+/* =================== SUPERINTENDENTE =================== */
+let sgFilter='todos', sgFechado=false, q={m:'',e:'',t:'',s:''};
+function renderSG(){
+  const enviados=rows.filter(r=>r.m==='10/2026'&&r.est_==='Aceito').length;
+  const faltam=['Cláudia Ramos','Pedro Alves','Carlos Mendes (você)'];
+  let h=`<div class="proto">Perfil: superintendente do Grupo 2. Vê só o grupo que supervisiona hoje, com todo o histórico dele.</div>
+  <div class="headline"><div><h1>Grupo 2 · Outubro/2026</h1><p class="sub" style="margin:0">${sgFechado?'<span class="pill warn">Fechado</span>':'<span class="pill ok">Aberto</span>'} · hoje ${HOJE}</p></div>
+  <div class="count">${sgFechado?'Mês do grupo fechado':'<b class="num">11</b> dias para o fechamento (15/11)'}</div></div>
+  <div class="kpis" role="group" aria-label="Indicadores">
+    <button class="kpi ok" data-f="enviados" aria-pressed="${sgFilter==='enviados'}"><b>${enviados}/8</b><span>Enviaram</span></button>
+    <button class="kpi bad" data-f="faltam" aria-pressed="${sgFilter==='faltam'}"><b>${faltam.length}</b><span>Faltam</span></button>
+    <button class="kpi info" data-f="concil" aria-pressed="${sgFilter==='concil'}"><b>${pend.filter(p=>p.concil).length}</b><span>Aguardando conciliação</span></button>
+    <button class="kpi warn" data-f="aprov" aria-pressed="${sgFilter==='aprov'}"><b>${pend.filter(p=>!p.concil).length}</b><span>Aguardando aprovação</span></button>
+  </div>
+  ${sgFilter==='faltam'?`<div class="panel" style="margin-bottom:16px"><h2>Ainda não enviaram</h2><div class="row">${faltam.map(f=>`<span class="pill bad">${f}</span>`).join('')}</div></div>`:''}
+  <div class="cols">
+   <section aria-label="Pendências"><h2>Pendências</h2><div class="pend">${pend.filter(p=>sgFilter==='concil'?p.concil:sgFilter==='aprov'?!p.concil:true).map(pcard).join('')||'<p class="sub">Nenhuma pendência.</p>'}</div>
+     <div class="row" style="margin-top:12px"><button class="btn primary" id="fechar" ${sgFechado?'disabled':''}>Fechar o mês do grupo</button></div>
+     <div id="fechar-box" hidden class="panel" style="margin-top:10px"><p style="margin-top:0"><b>Antes de fechar:</b> 3 publicadores não enviaram e há ${pend.length} pendências. Quem não enviou ficará como "não relatou".</p><div class="row"><button class="btn primary" id="fechar-ok">Fechar mesmo assim</button><button class="btn" id="fechar-no">Cancelar</button></div></div>
+   </section>
+   <section aria-label="Registros"><div class="row" style="justify-content:space-between"><h2>Registros do grupo</h2><button class="btn" id="ins" ${sgFechado?'disabled':''}>+ Inserir dados</button></div>
+     ${sgFechado?'<div class="closed">Mês fechado. Para inserir dados, peça liberação ao secretário.</div>':''}
+     <div id="ins-box" hidden class="panel stack" style="margin-bottom:10px">
+       <div class="field"><label for="ins-p">Publicador</label><select id="ins-p">${pubs.map(p=>`<option>${p.n}</option>`).join('')}</select></div>
+       <div class="field"><label for="ins-t">O que registrar</label><select id="ins-t"><option>Observação no relatório</option><option>Saúde</option><option>Mudou-se</option><option>Removido</option><option>Relatório em nome do publicador (papel)</option></select></div>
+       <div class="row"><div class="field" style="flex:1 1 140px"><label for="ins-d">Data</label><input id="ins-d" type="date" value="2026-11-04"></div><div class="field" style="flex:3 1 220px"><label for="ins-x">Descrição / justificativa</label><input id="ins-x"></div></div>
+       <div class="row"><button class="btn primary" id="ins-ok">Salvar</button><button class="btn" id="ins-no">Cancelar</button></div>
+     </div>
+     <div class="filters">
+       <select id="q-m" aria-label="Mês"><option value="">Todos os meses</option><option>10/2026</option><option>09/2026</option><option>08/2026</option></select>
+       <select id="q-e" aria-label="Estado"><option value="">Todos os estados</option><option>Aceito</option><option>Não relatou</option></select>
+       <select id="q-t" aria-label="Tipo de envio"><option value="">Todos os tipos</option><option>No prazo</option><option>Em nome de</option></select>
+       <input id="q-s" type="search" placeholder="Buscar nome" aria-label="Buscar nome">
+     </div>
+     <div class="tablewrap"><table class="grid cards"><thead><tr><th>Publicador</th><th>Mês</th><th>Part.</th><th>Est.</th><th>Horas</th><th>Crédito</th><th>Tipo</th><th>Estado</th><th>Recebido</th></tr></thead><tbody id="tb"></tbody></table></div>
+   </section>
+  </div>`;
+  app.innerHTML=h;
+  ['m','e','t','s'].forEach(k=>{const el=$('#q-'+k);el.value=q[k];el.oninput=()=>{q[k]=el.value;fillGrid()}});
+  fillGrid();
+  app.querySelectorAll('.kpi').forEach(b=>b.onclick=()=>{sgFilter=sgFilter===b.dataset.f?'todos':b.dataset.f;if(sgFilter==='enviados'){q.m='10/2026';q.e='Aceito'}renderSG()});
+  bindPend(renderSG);
+  if(!sgFechado){
+    $('#fechar').onclick=()=>{$('#fechar-box').hidden=false};
+    $('#fechar-no').onclick=()=>{$('#fechar-box').hidden=true};
+    $('#fechar-ok').onclick=()=>{sgFechado=true;toast('Mês do Grupo 2 fechado');renderSG()};
+    $('#ins').onclick=()=>{$('#ins-box').hidden=false};
+    $('#ins-no').onclick=()=>{$('#ins-box').hidden=true};
+    $('#ins-ok').onclick=()=>{const t=$('#ins-t').value;if(t.startsWith('Relatório')&&!$('#ins-x').value.trim()){toast('A justificativa é obrigatória.');$('#ins-x').focus();return}$('#ins-box').hidden=true;toast('Registrado: '+t)};
+  }
+}
+function fillGrid(){
+  const tb=$('#tb');if(!tb)return;
+  const r=rows.filter(x=>(!q.m||x.m===q.m)&&(!q.e||x.est_===q.e)&&(!q.t||x.tipo===q.t)&&(!q.s||x.p.toLowerCase().includes(q.s.toLowerCase())));
+  tb.innerHTML=r.map(x=>`<tr><td data-l="Publicador"><b>${esc(x.p)}</b></td><td data-l="Mês">${x.m}</td><td data-l="Participou">${x.part?'Sim':'—'}</td><td data-l="Estudos" class="n">${x.est}</td><td data-l="Horas" class="n">${x.h}</td><td data-l="Crédito" class="n">${x.cr}</td><td data-l="Tipo">${x.tipo}</td><td data-l="Estado"><span class="pill ${x.est_==='Aceito'?'ok':'bad'}">${x.est_}</span></td><td data-l="Recebido" class="num">${x.rec}</td></tr>`).join('')||'<tr><td colspan="9">Nenhum registro com esses filtros.</td></tr>';
+}
+function pcard(p){
+  return `<article class="pcard ${p.self?'self':''}" data-id="${p.id}">
+   <div class="row" style="justify-content:space-between"><b>${esc(p.p)}</b><span class="pill ${p.concil?'info':'warn'}">${p.tipo}</span></div>
+   <div class="meta">${p.m} · ${p.info}</div>
+   ${p.diff?`<div class="diff"><span class="h"></span><span class="h">Antes</span><span class="h">Depois</span>${p.diff.map(d=>`<span>${d[0]}</span><span class="num">${d[1]}</span><b class="num">${d[2]}</b>`).join('')}</div>`:''}
+   ${p.d?`<div class="meta">${Object.entries(p.d).map(([k,v])=>k+': <b>'+v+'</b>').join(' · ')}</div>`:''}
+   ${p.self?'<div class="meta" style="color:var(--accent)">É o seu próprio relatório. A decisão fica marcada como autoaprovação.</div>':''}
+   ${p.concil?`<div class="field"><label for="c${p.id}">Associar ao publicador</label><select id="c${p.id}">${pubs.map(x=>`<option ${x.n==='Ana Souza'?'selected':''}>${x.n}</option>`).join('')}</select></div>`:''}
+   <div class="row"><button class="btn ok" data-a="ok">${p.concil?'Conciliar e aceitar':'Aprovar'}</button><button class="btn bad" data-a="no">Recusar</button></div>
+   <div class="motivo stack" hidden><div class="field"><label for="m${p.id}">Motivo da recusa (obrigatório)</label><textarea id="m${p.id}" rows="2"></textarea></div><button class="btn bad" data-a="conf">Confirmar recusa</button></div>
+  </article>`;
+}
+function bindPend(rerender){
+  app.querySelectorAll('.pcard').forEach(c=>{
+    const id=+c.dataset.id;
+    c.querySelector('[data-a="ok"]').onclick=()=>{pend=pend.filter(p=>p.id!==id);toast('Aprovado');rerender()};
+    c.querySelector('[data-a="no"]').onclick=()=>{c.querySelector('.motivo').hidden=false;c.querySelector('textarea').focus()};
+    c.querySelector('[data-a="conf"]').onclick=()=>{const t=c.querySelector('textarea');if(!t.value.trim()){toast('Escreva o motivo da recusa.');t.focus();return}pend=pend.filter(p=>p.id!==id);toast('Recusado. O publicador verá o motivo.');rerender()};
+  });
+}
+
+/* =================== SECRETÁRIO =================== */
+let secView='painel', secTab=0;
+function renderSec(){
+  const menu=[['Geral',[['painel','Painel'],['pend','Pendências']]],['Atividades',[['rel','Relatórios'],['fech','Fechamentos'],['pio','Pioneiros'],['status','Status'],['docs','Documentos']]],['Cadastro',[['pubs','Publicadores'],['grupos','Grupos']]],['Reuniões',[['s3','Assistência S-3']]],['Sistema',[['par','Parâmetros'],['aud','Auditoria']]]];
+  let body='';
+  if(secView==='painel'){
+    body=`<div class="headline"><div><h1>Congregação · Outubro/2026</h1><p class="sub" style="margin:0">Hoje ${HOJE}</p></div><button class="btn primary" id="fcong" disabled title="Disponível após o fechamento dos grupos">Fechar o mês da congregação</button></div>
+    <div class="timeline" aria-label="Prazos do mês">
+      <div class="tl now"><b>Dia 6</b><span>Prazo de envio</span></div><div class="tl"><b>Dia 7</b><span>Bloqueio</span></div><div class="tl"><b>Dia 15/16</b><span>Grupos fecham</span></div><div class="tl"><b>Dia 20</b><span>Congregação</span></div><div class="tl"><b>Fim do mês</b><span>Imutável</span></div>
+    </div>
+    <div class="groups">${[['Grupo 1','José Pereira',21,24,2],['Grupo 2','Carlos Mendes',5,8,4],['Grupo 3','Paulo Reis',18,26,1],['Grupo 4','Marcos Dias',12,22,3]].map(g=>`<div class="gcard"><div class="row" style="justify-content:space-between"><b>${g[0]}</b><span class="pill ok">Aberto</span></div><span class="sub" style="margin:0;font-size:.85em">SG: ${g[1]}</span><div class="bar" aria-hidden="true"><i style="width:${Math.round(g[2]/g[3]*100)}%"></i></div><div class="row" style="justify-content:space-between;font-size:.9em"><span class="num">${g[2]}/${g[3]} enviaram</span><span class="pill warn">${g[4]} pend.</span></div></div>`).join('')}</div>
+    <div class="panel"><h2>Totais parciais do mês</h2><div class="tablewrap" style="border:0"><table class="grid"><thead><tr><th>Categoria</th><th>Relatórios</th><th>Horas</th><th>Estudos</th></tr></thead><tbody>
+      <tr><td>Publicadores</td><td class="n">44</td><td class="n">—</td><td class="n">19</td></tr><tr><td>Pioneiros auxiliares</td><td class="n">5</td><td class="n">162</td><td class="n">6</td></tr><tr><td>Pioneiros regulares</td><td class="n">7</td><td class="n">341</td><td class="n">14</td></tr><tr><td>Média de assistência (fim de semana)</td><td class="n" colspan="3">118</td></tr></tbody></table></div></div>`;
+  } else if(secView==='pend'){
+    const tabs=[['Tardios',2],['Atrasos após o fechamento',1],['Pedidos de liberação',1],['Petições na CS',2],['Não identificados',1],['Alertas de pioneiros',3]];
+    const content=[
+      [['Cláudia Ramos · Agosto/2026','Retroativo aprovado pelo SG em 03/11. Entra no relatório da congregação de Outubro/2026.'],['Pedro Alves · Julho/2026','Retroativo aprovado pelo SG em 01/11.']],
+      [['Ana Souza · Setembro/2026','Em atraso, aprovado pelo SG após o fechamento do grupo. Fila para o próximo ciclo.']],
+      [['Grupo 3 · Paulo Reis','Pede liberação para corrigir observações de Setembro/2026.']],
+      [['Roberto Lima','Novembro e dezembro/2026 · 2 de 3 aprovações'],['Lúcia Martins','Continuamente desde jan/2027 · 1 de 3 aprovações']],
+      [['"Ana S." · Grupo 2','Sem conciliação há 1 dia.']],
+      [['João Batista','Precisa de 52h/mês para chegar a 600h.'],['Marta Gomes','Abaixo do limite proporcional (280h).'],['Sérgio Prado','Sem relatório em Outubro.']]];
+    body=`<h1>Pendências</h1><p class="sub">Tudo o que espera uma decisão sua.</p><div class="tabs" role="tablist">${tabs.map((t,i)=>`<button role="tab" aria-selected="${i===secTab}" data-t="${i}">${t[0]}<span class="pill ${i===secTab?'info':'warn'}">${t[1]}</span></button>`).join('')}</div>
+    <div class="pend">${content[secTab].map(c=>`<article class="pcard"><b>${c[0]}</b><div class="meta">${c[1]}</div><div class="row">${secTab===2?'<label class="field" style="flex:1 1 180px"><span class="meta">Liberar até</span><input type="date" value="2026-11-08"></label>':''}<button class="btn ok" data-x>${secTab===2?'Liberar':secTab===5?'Ver pioneiro':'Aceitar'}</button>${secTab===5?'':'<button class="btn bad" data-x>Recusar</button>'}</div></article>`).join('')}</div>`;
+  } else {
+    const nm=menu.flatMap(g=>g[1]).find(x=>x[0]===secView)[1];
+    body=`<h1>${nm}</h1><div class="panel"><p style="margin:0">Esta área ainda não está no protótipo. O conteúdo previsto está em <code>specs/05-ux/secretario.md</code>.</p></div>`;
+  }
+  app.innerHTML=`<div class="proto">Perfil: secretário (também é SG do Grupo 2; o papel é trocado no topo). Uso principal no computador, com o layout adaptado ao celular.</div>
+  <div class="layout"><nav class="side" aria-label="Menu do secretário">${menu.map(g=>`<div class="grp">${g[0]}</div>`+g[1].map(i=>`<button data-v="${i[0]}" aria-current="${i[0]===secView}">${i[1]}</button>`).join('')).join('')}</nav><div style="min-width:0">${body}</div></div>`;
+  app.querySelectorAll('nav.side button').forEach(b=>b.onclick=()=>{secView=b.dataset.v;renderSec()});
+  app.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{secTab=+b.dataset.t;renderSec()});
+  app.querySelectorAll('[data-x]').forEach(b=>b.onclick=()=>{b.closest('.pcard').remove();toast('Registrado na auditoria')});
+}
+
+/* =================== COMISSÃO =================== */
+let csTab='pet', faixa='';
+const apur=[['João Batista',12,'600','560',588,14,'Continua'],['Marta Gomes',6,'300','280',262,24,'Análise da CS'],['Sérgio Prado',12,'600','560',512,10,'Cancelamento sugerido'],['Elisa Torres',12,'600','560',611,0,'Continua'],['Rui Campos (enfermo)',12,'—','—',180,0,'Sem exigência']];
+let aprov={Roberto:2,Lucia:1};
+function renderCS(){
+  let b='';
+  if(csTab==='pet'){
+    b=[['Roberto','Roberto Lima','Novembro e dezembro/2026','Pedido em 28/10/2026 · SG consultado'],['Lucia','Lúcia Martins','Continuamente, a partir de janeiro/2027','Pedido em 02/11/2026 · SG consultado']].map(p=>`<article class="pcard"><div class="row" style="justify-content:space-between"><b>${p[1]}</b><span class="pill info">S-205b</span></div><div class="meta">${p[2]} · ${p[3]}</div>
+      <div class="row"><div class="prog" aria-label="${aprov[p[0]]} de 3 aprovações">${[0,1,2].map(i=>`<i class="${i<aprov[p[0]]?'on':''}"></i>`).join('')}</div><span class="meta">${aprov[p[0]]} de 3 aprovações (coordenador, secretário, superint. de serviço)</span></div>
+      <fieldset style="border:1px solid var(--line);border-radius:8px;padding:8px 12px"><legend class="meta">Critérios</legend>
+        <label class="toggle" style="min-height:44px"><span>Bom exemplo de vida cristã, boa reputação moral</span><input type="checkbox"></label>
+        <label class="toggle" style="min-height:44px"><span>Não repreendido nem readmitido nos últimos 12 meses; sem restrições</span><input type="checkbox"></label>
+        <label class="toggle" style="min-height:44px"><span>Superintendente do grupo consultado</span><input type="checkbox" checked></label></fieldset>
+      <div class="row"><button class="btn ok" data-ap="${p[0]}">Aprovar (minha parte)</button><button class="btn bad" data-x>Recusar</button></div></article>`).join('')+
+      `<article class="pcard"><div class="row" style="justify-content:space-between"><b>Ana Souza</b><span class="pill bad">Cancelada automaticamente</span></div><div class="meta">Contínua desde set/2026 · 22h em outubro (meta 30h)</div><div class="row"><button class="btn" data-x>Reativar</button></div></article>`;
+    b=`<div class="pend">${b}</div>`;
+  } else {
+    const r=apur.filter(a=>!faixa||a[6]===faixa);
+    b=`<div class="filters" role="group" aria-label="Faixa">${['','Continua','Análise da CS','Cancelamento sugerido','Sem exigência'].map(f=>`<button class="btn ${f===faixa?'primary':''}" data-fx="${f}">${f||'Todos'}</button>`).join('')}</div>
+    <div class="tablewrap"><table class="grid cards"><thead><tr><th>Pioneiro</th><th>Meses</th><th>Meta</th><th>Limite</th><th>Campo</th><th>Crédito</th><th>Faixa</th></tr></thead><tbody>${r.map(a=>`<tr><td data-l="Pioneiro"><b>${a[0]}</b></td><td data-l="Meses" class="n">${a[1]}</td><td data-l="Meta" class="n">${a[2]}</td><td data-l="Limite" class="n">${a[3]}</td><td data-l="Campo" class="n">${a[4]}</td><td data-l="Crédito" class="n">${a[5]}</td><td data-l="Faixa"><span class="pill ${a[6]==='Continua'?'ok':a[6]==='Análise da CS'?'warn':a[6]==='Sem exigência'?'info':'bad'}">${a[6]}</span>${a[6]==='Análise da CS'&&a[4]+a[5]>=+a[3]?'<div class="meta" style="font-size:.8em">atinge o limite só com crédito</div>':''}</td></tr>`).join('')}</tbody></table></div>
+    <p class="sub" style="margin-top:8px">Ano de serviço 2026 (fechado) · meta proporcional para quem não foi pioneiro o ano todo.</p>`;
+  }
+  app.innerHTML=`<div class="proto">Perfil: membro da Comissão de Serviço. Cada membro aprova a sua parte.</div><h1>Comissão de Serviço</h1>
+  <div class="tabs" role="tablist"><button role="tab" aria-selected="${csTab==='pet'}" data-cs="pet">Petições<span class="pill warn">3</span></button><button role="tab" aria-selected="${csTab==='apu'}" data-cs="apu">Apuração dos pioneiros regulares</button></div>${b}`;
+  app.querySelectorAll('[data-cs]').forEach(x=>x.onclick=()=>{csTab=x.dataset.cs;renderCS()});
+  app.querySelectorAll('[data-fx]').forEach(x=>x.onclick=()=>{faixa=x.dataset.fx;renderCS()});
+  app.querySelectorAll('[data-ap]').forEach(x=>x.onclick=()=>{const k=x.dataset.ap;aprov[k]=Math.min(3,aprov[k]+1);toast(aprov[k]===3?'Petição aprovada pelas 3 partes':'Sua aprovação foi registrada');renderCS()});
+  app.querySelectorAll('[data-x]').forEach(x=>x.onclick=()=>{x.closest('.pcard').remove();toast('Registrado')});
+}
+
+route();
+})();
+</script>
