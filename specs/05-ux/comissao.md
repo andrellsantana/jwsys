@@ -3,6 +3,7 @@
 Decisões de 04/11/2026. Acesso restrito aos membros da CS (CAD).
 
 ## UX-CS-001 Petições de pioneiro auxiliar
+- A fila se chama **"Petições de pioneiro auxiliar"** em todas as telas, e cada cartão leva a etiqueta "Pioneiro auxiliar · S-205b".
 - Fila de petições pendentes: publicador, meses ou "continuamente", data, SG consultado.
 - A petição é exibida como o S-205b original (ATV-013).
 - Os 3 critérios da comissão aparecem como confirmação explícita.

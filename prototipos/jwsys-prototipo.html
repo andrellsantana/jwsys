@@ -5,22 +5,25 @@
 <style>
 /* Layout: barra de papel no topo + conteúdo em coluna única no celular, grade em telas largas. A "folha" do formulário é sempre papel branco. */
 :root{
-  --bg:#f3f5f7; --surface:#ffffff; --surface-2:#e9edf1; --fg:#17212b; --muted:#56636f; --line:#cfd6dd;
-  --accent:#1d5576; --accent-fg:#ffffff; --accent-soft:#dbe8f0;
-  --ok:#1f7a45; --ok-soft:#dcefe3; --warn:#9a6200; --warn-soft:#f6ead2; --bad:#a33131; --bad-soft:#f5dddd;
+  --bg:#f5f8f9; --surface:#ffffff; --surface-2:#eef3f5; --fg:#26333d; --muted:#6a7884; --line:#e2e8ec;
+  --accent:#4a86a6; --accent-fg:#ffffff; --accent-soft:#e5f0f5;
+  --ok:#3b8a62; --ok-soft:#e5f3eb; --warn:#a2731f; --warn-soft:#fbf1df; --bad:#b25454; --bad-soft:#fbe9e9;
+  --sel:#f0f6f9; --shadow:0 1px 2px rgba(38,51,61,.05),0 4px 14px rgba(38,51,61,.05);
   --paper:#ffffff; --paper-ink:#111111; --paper-line:#7d7d7d;
   --f-ui:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-paper:"Source Serif 4",Georgia,"Times New Roman",serif;
-  --fs:16px; --radius:10px;
+  --fs:16px; --radius:14px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#11171d; --surface:#1a222a; --surface-2:#232d37; --fg:#e7edf2; --muted:#a3b0bc; --line:#33404c;
-  --accent:#7db8db; --accent-fg:#0d1a22; --accent-soft:#1d3444;
-  --ok:#6fcf97; --ok-soft:#173326; --warn:#e6b45a; --warn-soft:#3a2d12; --bad:#ef8a8a; --bad-soft:#3d1c1c; color-scheme:dark}}
+  --bg:#151b20; --surface:#1c242b; --surface-2:#232d35; --fg:#e3eaef; --muted:#9eacb8; --line:#2c3842;
+  --accent:#8cc1db; --accent-fg:#10202a; --accent-soft:#213845;
+  --ok:#7fcca1; --ok-soft:#1c3328; --warn:#e3bd73; --warn-soft:#382d18; --bad:#eb9a9a; --bad-soft:#3a2224;
+  --sel:#22313b; --shadow:0 1px 2px rgba(0,0,0,.25); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#11171d; --surface:#1a222a; --surface-2:#232d37; --fg:#e7edf2; --muted:#a3b0bc; --line:#33404c;
-  --accent:#7db8db; --accent-fg:#0d1a22; --accent-soft:#1d3444;
-  --ok:#6fcf97; --ok-soft:#173326; --warn:#e6b45a; --warn-soft:#3a2d12; --bad:#ef8a8a; --bad-soft:#3d1c1c; color-scheme:dark}
+  --bg:#151b20; --surface:#1c242b; --surface-2:#232d35; --fg:#e3eaef; --muted:#9eacb8; --line:#2c3842;
+  --accent:#8cc1db; --accent-fg:#10202a; --accent-soft:#213845;
+  --ok:#7fcca1; --ok-soft:#1c3328; --warn:#e3bd73; --warn-soft:#382d18; --bad:#eb9a9a; --bad-soft:#3a2224;
+  --sel:#22313b; --shadow:0 1px 2px rgba(0,0,0,.25); color-scheme:dark}
 :root.contraste{--fg:#000;--muted:#1a1a1a;--line:#000;--accent:#003a5c;--bg:#fff;--surface:#fff;--surface-2:#eee}
 :root.contraste[data-theme="dark"]{--fg:#fff;--muted:#f0f0f0;--line:#fff;--accent:#9fd8ff;--accent-fg:#000;--bg:#000;--surface:#000;--surface-2:#111}
 :root.fonte-grande{--fs:20px}
@@ -47,7 +50,20 @@ h2{font-size:1.15em;margin:0 0 10px;text-wrap:balance}
 .btn.ok{background:var(--ok);border-color:var(--ok);color:#fff;font-weight:700}
 .btn.bad{border-color:var(--bad);color:var(--bad)}
 .btn[disabled]{opacity:.45;cursor:not-allowed}
-.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.kpi,.gcard,.pcard,.item,.tablewrap,.bigmenu button{box-shadow:var(--shadow)}
+.btn{transition:background-color .15s,border-color .15s}
+.btn:hover:not([disabled]){border-color:var(--accent)}
+table.grid tbody tr{cursor:pointer;outline:none}
+table.grid tbody tr:hover{background:var(--sel)}
+table.grid tbody tr:focus-visible{box-shadow:inset 3px 0 0 var(--accent);background:var(--sel)}
+table.grid tbody tr[aria-selected="true"]{background:var(--accent-soft)}
+.notes{display:flex;flex-wrap:wrap;gap:4px}
+.editor{border:1px solid var(--accent);background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:12px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow)}
+.hint{font-size:.8em;color:var(--muted)}
+kbd{font-family:inherit;font-size:.85em;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;background:var(--surface-2)}
+.kpi-big{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:16px}
+@media (max-width:640px){.kpi-big{grid-template-columns:minmax(0,1fr)}}
 .stack{display:flex;flex-direction:column;gap:12px}
 .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .pill{display:inline-flex;align-items:center;gap:4px;padding:2px 10px;border-radius:999px;font-size:.8em;font-weight:700;white-space:nowrap}
@@ -338,21 +354,17 @@ function renderSG(){
      <div class="row" style="margin-top:12px"><button class="btn primary" id="fechar" ${sgFechado?'disabled':''}>Fechar o mês do grupo</button></div>
      <div id="fechar-box" hidden class="panel" style="margin-top:10px"><p style="margin-top:0"><b>Antes de fechar:</b> 3 publicadores não enviaram e há ${pend.length} pendências. Quem não enviou ficará como "não relatou".</p><div class="row"><button class="btn primary" id="fechar-ok">Fechar mesmo assim</button><button class="btn" id="fechar-no">Cancelar</button></div></div>
    </section>
-   <section aria-label="Registros"><div class="row" style="justify-content:space-between"><h2>Registros do grupo</h2><button class="btn" id="ins" ${sgFechado?'disabled':''}>+ Inserir dados</button></div>
+   <section aria-label="Registros"><h2>Registros do grupo</h2>
+     <p class="hint" style="margin:-4px 0 10px">Toque numa linha para inserir dados. No teclado, use <kbd>↑</kbd> <kbd>↓</kbd> para navegar pelos nomes, <kbd>Enter</kbd> para abrir e <kbd>Esc</kbd> para fechar.</p>
      ${sgFechado?'<div class="closed">Mês fechado. Para inserir dados, peça liberação ao secretário.</div>':''}
-     <div id="ins-box" hidden class="panel stack" style="margin-bottom:10px">
-       <div class="field"><label for="ins-p">Publicador</label><select id="ins-p">${pubs.map(p=>`<option>${p.n}</option>`).join('')}</select></div>
-       <div class="field"><label for="ins-t">O que registrar</label><select id="ins-t"><option>Observação no relatório</option><option>Saúde</option><option>Mudou-se</option><option>Removido</option><option>Relatório em nome do publicador (papel)</option></select></div>
-       <div class="row"><div class="field" style="flex:1 1 140px"><label for="ins-d">Data</label><input id="ins-d" type="date" value="2026-11-04"></div><div class="field" style="flex:3 1 220px"><label for="ins-x">Descrição / justificativa</label><input id="ins-x"></div></div>
-       <div class="row"><button class="btn primary" id="ins-ok">Salvar</button><button class="btn" id="ins-no">Cancelar</button></div>
-     </div>
+     <div id="editor"></div>
      <div class="filters">
        <select id="q-m" aria-label="Mês"><option value="">Todos os meses</option><option>10/2026</option><option>09/2026</option><option>08/2026</option></select>
        <select id="q-e" aria-label="Estado"><option value="">Todos os estados</option><option>Aceito</option><option>Não relatou</option></select>
        <select id="q-t" aria-label="Tipo de envio"><option value="">Todos os tipos</option><option>No prazo</option><option>Em nome de</option></select>
        <input id="q-s" type="search" placeholder="Buscar nome" aria-label="Buscar nome">
      </div>
-     <div class="tablewrap"><table class="grid cards"><thead><tr><th>Publicador</th><th>Mês</th><th>Part.</th><th>Est.</th><th>Horas</th><th>Crédito</th><th>Tipo</th><th>Estado</th><th>Recebido</th></tr></thead><tbody id="tb"></tbody></table></div>
+     <div class="tablewrap"><table class="grid cards"><thead><tr><th>Publicador</th><th>Mês</th><th>Part.</th><th>Est.</th><th>Horas</th><th>Crédito</th><th>Tipo</th><th>Estado</th><th>Recebido</th><th>Anotações</th></tr></thead><tbody id="tb"></tbody></table></div>
    </section>
   </div>`;
   app.innerHTML=h;
@@ -363,16 +375,54 @@ function renderSG(){
   if(!sgFechado){
     $('#fechar').onclick=()=>{$('#fechar-box').hidden=false};
     $('#fechar-no').onclick=()=>{$('#fechar-box').hidden=true};
-    $('#fechar-ok').onclick=()=>{sgFechado=true;toast('Mês do Grupo 2 fechado');renderSG()};
-    $('#ins').onclick=()=>{$('#ins-box').hidden=false};
-    $('#ins-no').onclick=()=>{$('#ins-box').hidden=true};
-    $('#ins-ok').onclick=()=>{const t=$('#ins-t').value;if(t.startsWith('Relatório')&&!$('#ins-x').value.trim()){toast('A justificativa é obrigatória.');$('#ins-x').focus();return}$('#ins-box').hidden=true;toast('Registrado: '+t)};
+    $('#fechar-ok').onclick=()=>{sgFechado=true;selRow=null;toast('Mês do Grupo 2 fechado');renderSG()};
   }
 }
+let selRow=null;
+const tipoNota={obs:['Observação','info'],saude:['Saúde','warn'],mudou:['Mudou-se','bad'],removido:['Removido','bad'],papel:['Em nome de (papel)','info']};
+function visibleRows(){return rows.map((x,i)=>Object.assign({i},x)).filter(x=>(!q.m||x.m===q.m)&&(!q.e||x.est_===q.e)&&(!q.t||x.tipo===q.t)&&(!q.s||x.p.toLowerCase().includes(q.s.toLowerCase())))}
 function fillGrid(){
   const tb=$('#tb');if(!tb)return;
-  const r=rows.filter(x=>(!q.m||x.m===q.m)&&(!q.e||x.est_===q.e)&&(!q.t||x.tipo===q.t)&&(!q.s||x.p.toLowerCase().includes(q.s.toLowerCase())));
-  tb.innerHTML=r.map(x=>`<tr><td data-l="Publicador"><b>${esc(x.p)}</b></td><td data-l="Mês">${x.m}</td><td data-l="Participou">${x.part?'Sim':'—'}</td><td data-l="Estudos" class="n">${x.est}</td><td data-l="Horas" class="n">${x.h}</td><td data-l="Crédito" class="n">${x.cr}</td><td data-l="Tipo">${x.tipo}</td><td data-l="Estado"><span class="pill ${x.est_==='Aceito'?'ok':'bad'}">${x.est_}</span></td><td data-l="Recebido" class="num">${x.rec}</td></tr>`).join('')||'<tr><td colspan="9">Nenhum registro com esses filtros.</td></tr>';
+  const r=visibleRows();
+  tb.innerHTML=r.map(x=>`<tr tabindex="0" data-i="${x.i}" aria-selected="${selRow===x.i}"><td data-l="Publicador"><b>${esc(x.p)}</b></td><td data-l="Mês">${x.m}</td><td data-l="Participou">${x.part?'Sim':'—'}</td><td data-l="Estudos" class="n">${x.est}</td><td data-l="Horas" class="n">${x.h}</td><td data-l="Crédito" class="n">${x.cr}</td><td data-l="Tipo">${x.tipo}</td><td data-l="Estado"><span class="pill ${x.est_==='Aceito'?'ok':'bad'}">${x.est_}</span></td><td data-l="Recebido" class="num">${x.rec}</td><td data-l="Anotações"><div class="notes">${(x.notas||[]).map(n=>`<span class="pill ${tipoNota[n.t][1]}" title="${esc(n.x)}">${tipoNota[n.t][0]}${n.d?' · '+n.d:''}</span>`).join('')||'<span class="hint">—</span>'}</div></td></tr>`).join('')||'<tr><td colspan="10">Nenhum registro com esses filtros.</td></tr>';
+  const trs=[...tb.querySelectorAll('tr[data-i]')];
+  trs.forEach((tr,k)=>{
+    tr.onclick=()=>openEditor(+tr.dataset.i);
+    tr.onkeydown=e=>{
+      if(e.key==='ArrowDown'){e.preventDefault();(trs[k+1]||tr).focus()}
+      else if(e.key==='ArrowUp'){e.preventDefault();(trs[k-1]||tr).focus()}
+      else if(e.key==='Home'){e.preventDefault();trs[0].focus()}
+      else if(e.key==='End'){e.preventDefault();trs[trs.length-1].focus()}
+      else if(e.key==='Enter'||e.key===' '){e.preventDefault();openEditor(+tr.dataset.i)}
+      else if(e.key==='Escape'){closeEditor()}
+    };
+  });
+}
+function openEditor(i){
+  selRow=i;const x=rows[i];const box=$('#editor');
+  if(sgFechado){box.innerHTML=`<div class="editor"><b>${esc(x.p)} · ${x.m}</b><span class="hint">O mês está fechado. Para inserir dados, peça liberação ao secretário.</span><div class="row"><button class="btn" id="ed-no">Fechar</button></div></div>`;$('#ed-no').onclick=closeEditor;fillGrid();return}
+  box.innerHTML=`<div class="editor" role="region" aria-label="Inserir dados para ${esc(x.p)}">
+    <div class="row" style="justify-content:space-between"><b>${esc(x.p)} · ${x.m}</b><span class="hint">O que for salvo aparece na coluna Anotações</span></div>
+    <div class="row"><div class="field" style="flex:2 1 200px"><label for="ed-t">O que registrar</label><select id="ed-t"><option value="obs">Observação no relatório</option><option value="saude">Saúde</option><option value="mudou">Mudou-se</option><option value="removido">Removido</option><option value="papel">Relatório em nome do publicador (papel)</option></select></div>
+    <div class="field" style="flex:1 1 140px"><label for="ed-d">Data</label><input id="ed-d" type="date" value="2026-11-04"></div></div>
+    <div class="field"><label for="ed-x" id="ed-xl">Descrição</label><input id="ed-x"></div>
+    <div class="row"><button class="btn primary" id="ed-ok">Salvar</button><button class="btn" id="ed-no">Cancelar</button></div></div>`;
+  const t=$('#ed-t');t.onchange=()=>{$('#ed-xl').textContent=t.value==='papel'?'Justificativa (obrigatória)':'Descrição'};
+  $('#ed-no').onclick=closeEditor;
+  box.querySelector('.editor').onkeydown=e=>{if(e.key==='Escape')closeEditor()};
+  $('#ed-ok').onclick=()=>{
+    const v=$('#ed-x').value.trim();
+    if(t.value==='papel'&&!v){toast('A justificativa é obrigatória.');$('#ed-x').focus();return}
+    const d=$('#ed-d').value;const dd=d?d.split('-').reverse().slice(0,2).join('/'):'';
+    (rows[i].notas=rows[i].notas||[]).push({t:t.value,d:t.value==='obs'?'':dd,x:v||tipoNota[t.value][0]});
+    if(t.value==='obs'&&v)rows[i].obs=v;
+    toast('Salvo: '+tipoNota[t.value][0]+' para '+x.p);closeEditor(i);
+  };
+  fillGrid();t.focus();
+}
+function closeEditor(back){
+  const i=back??selRow;selRow=null;const b=$('#editor');if(b)b.innerHTML='';fillGrid();
+  const tr=document.querySelector(`#tb tr[data-i="${i}"]`);if(tr)tr.focus();
 }
 function pcard(p){
   return `<article class="pcard ${p.self?'self':''}" data-id="${p.id}">
@@ -405,11 +455,16 @@ function renderSec(){
     <div class="timeline" aria-label="Prazos do mês">
       <div class="tl now"><b>Dia 6</b><span>Prazo de envio</span></div><div class="tl"><b>Dia 7</b><span>Bloqueio</span></div><div class="tl"><b>Dia 15/16</b><span>Grupos fecham</span></div><div class="tl"><b>Dia 20</b><span>Congregação</span></div><div class="tl"><b>Fim do mês</b><span>Imutável</span></div>
     </div>
+    <div class="kpi-big">
+      <div class="kpi ok" style="cursor:default"><b>86</b><span><strong>Publicadores ativos</strong> · relataram em pelo menos 1 dos últimos 6 meses (mai–out/2026)</span></div>
+      <div class="kpi info" style="cursor:default"><b>79 · 7</b><span>Regulares · irregulares (dentro dos ativos)</span></div>
+      <div class="kpi bad" style="cursor:default"><b>5</b><span>Inativos · 6 meses seguidos sem relatar</span></div>
+    </div>
     <div class="groups">${[['Grupo 1','José Pereira',21,24,2],['Grupo 2','Carlos Mendes',5,8,4],['Grupo 3','Paulo Reis',18,26,1],['Grupo 4','Marcos Dias',12,22,3]].map(g=>`<div class="gcard"><div class="row" style="justify-content:space-between"><b>${g[0]}</b><span class="pill ok">Aberto</span></div><span class="sub" style="margin:0;font-size:.85em">SG: ${g[1]}</span><div class="bar" aria-hidden="true"><i style="width:${Math.round(g[2]/g[3]*100)}%"></i></div><div class="row" style="justify-content:space-between;font-size:.9em"><span class="num">${g[2]}/${g[3]} enviaram</span><span class="pill warn">${g[4]} pend.</span></div></div>`).join('')}</div>
     <div class="panel"><h2>Totais parciais do mês</h2><div class="tablewrap" style="border:0"><table class="grid"><thead><tr><th>Categoria</th><th>Relatórios</th><th>Horas</th><th>Estudos</th></tr></thead><tbody>
       <tr><td>Publicadores</td><td class="n">44</td><td class="n">—</td><td class="n">19</td></tr><tr><td>Pioneiros auxiliares</td><td class="n">5</td><td class="n">162</td><td class="n">6</td></tr><tr><td>Pioneiros regulares</td><td class="n">7</td><td class="n">341</td><td class="n">14</td></tr><tr><td>Média de assistência (fim de semana)</td><td class="n" colspan="3">118</td></tr></tbody></table></div></div>`;
   } else if(secView==='pend'){
-    const tabs=[['Tardios',2],['Atrasos após o fechamento',1],['Pedidos de liberação',1],['Petições na CS',2],['Não identificados',1],['Alertas de pioneiros',3]];
+    const tabs=[['Tardios',2],['Atrasos após o fechamento',1],['Pedidos de liberação',1],['Petições de pioneiro auxiliar',2],['Não identificados',1],['Alertas de pioneiros',3]];
     const content=[
       [['Cláudia Ramos · Agosto/2026','Retroativo aprovado pelo SG em 03/11. Entra no relatório da congregação de Outubro/2026.'],['Pedro Alves · Julho/2026','Retroativo aprovado pelo SG em 01/11.']],
       [['Ana Souza · Setembro/2026','Em atraso, aprovado pelo SG após o fechamento do grupo. Fila para o próximo ciclo.']],
@@ -437,7 +492,7 @@ let aprov={Roberto:2,Lucia:1};
 function renderCS(){
   let b='';
   if(csTab==='pet'){
-    b=[['Roberto','Roberto Lima','Novembro e dezembro/2026','Pedido em 28/10/2026 · SG consultado'],['Lucia','Lúcia Martins','Continuamente, a partir de janeiro/2027','Pedido em 02/11/2026 · SG consultado']].map(p=>`<article class="pcard"><div class="row" style="justify-content:space-between"><b>${p[1]}</b><span class="pill info">S-205b</span></div><div class="meta">${p[2]} · ${p[3]}</div>
+    b=[['Roberto','Roberto Lima','Novembro e dezembro/2026','Pedido em 28/10/2026 · SG consultado'],['Lucia','Lúcia Martins','Continuamente, a partir de janeiro/2027','Pedido em 02/11/2026 · SG consultado']].map(p=>`<article class="pcard"><div class="row" style="justify-content:space-between"><b>${p[1]}</b><span class="pill info">Pioneiro auxiliar · S-205b</span></div><div class="meta">${p[2]} · ${p[3]}</div>
       <div class="row"><div class="prog" aria-label="${aprov[p[0]]} de 3 aprovações">${[0,1,2].map(i=>`<i class="${i<aprov[p[0]]?'on':''}"></i>`).join('')}</div><span class="meta">${aprov[p[0]]} de 3 aprovações (coordenador, secretário, superint. de serviço)</span></div>
       <fieldset style="border:1px solid var(--line);border-radius:8px;padding:8px 12px"><legend class="meta">Critérios</legend>
         <label class="toggle" style="min-height:44px"><span>Bom exemplo de vida cristã, boa reputação moral</span><input type="checkbox"></label>
@@ -445,7 +500,7 @@ function renderCS(){
         <label class="toggle" style="min-height:44px"><span>Superintendente do grupo consultado</span><input type="checkbox" checked></label></fieldset>
       <div class="row"><button class="btn ok" data-ap="${p[0]}">Aprovar (minha parte)</button><button class="btn bad" data-x>Recusar</button></div></article>`).join('')+
       `<article class="pcard"><div class="row" style="justify-content:space-between"><b>Ana Souza</b><span class="pill bad">Cancelada automaticamente</span></div><div class="meta">Contínua desde set/2026 · 22h em outubro (meta 30h)</div><div class="row"><button class="btn" data-x>Reativar</button></div></article>`;
-    b=`<div class="pend">${b}</div>`;
+    b=`<p class="sub">S-205b · Petição para o Serviço de <b>Pioneiro Auxiliar</b>. Petições de pioneiro regular não passam por esta fila.</p><div class="pend">${b}</div>`;
   } else {
     const r=apur.filter(a=>!faixa||a[6]===faixa);
     b=`<div class="filters" role="group" aria-label="Faixa">${['','Continua','Análise da CS','Cancelamento sugerido','Sem exigência'].map(f=>`<button class="btn ${f===faixa?'primary':''}" data-fx="${f}">${f||'Todos'}</button>`).join('')}</div>
@@ -453,7 +508,7 @@ function renderCS(){
     <p class="sub" style="margin-top:8px">Ano de serviço 2026 (fechado) · meta proporcional para quem não foi pioneiro o ano todo.</p>`;
   }
   app.innerHTML=`<div class="proto">Perfil: membro da Comissão de Serviço. Cada membro aprova a sua parte.</div><h1>Comissão de Serviço</h1>
-  <div class="tabs" role="tablist"><button role="tab" aria-selected="${csTab==='pet'}" data-cs="pet">Petições<span class="pill warn">3</span></button><button role="tab" aria-selected="${csTab==='apu'}" data-cs="apu">Apuração dos pioneiros regulares</button></div>${b}`;
+  <div class="tabs" role="tablist"><button role="tab" aria-selected="${csTab==='pet'}" data-cs="pet">Petições de pioneiro auxiliar<span class="pill warn">3</span></button><button role="tab" aria-selected="${csTab==='apu'}" data-cs="apu">Apuração dos pioneiros regulares</button></div>${b}`;
   app.querySelectorAll('[data-cs]').forEach(x=>x.onclick=()=>{csTab=x.dataset.cs;renderCS()});
   app.querySelectorAll('[data-fx]').forEach(x=>x.onclick=()=>{faixa=x.dataset.fx;renderCS()});
   app.querySelectorAll('[data-ap]').forEach(x=>x.onclick=()=>{const k=x.dataset.ap;aprov[k]=Math.min(3,aprov[k]+1);toast(aprov[k]===3?'Petição aprovada pelas 3 partes':'Sua aprovação foi registrada');renderCS()});

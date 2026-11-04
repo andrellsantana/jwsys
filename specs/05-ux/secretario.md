@@ -11,6 +11,7 @@ O seletor de papel no topo alterna para "SG do Grupo X" e "Publicador" (NUC-003)
 
 ## UX-SEC-001 Painel da congregação
 - **Linha do tempo do mês:** dia 6 (prazo) → dia 7 (bloqueio) → dia 15/16 (grupos) → dia 20 (congregação) → fim do mês (imutável), com o dia atual destacado.
+- **Publicadores ativos:** quem relatou em pelo menos 1 dos últimos 6 meses fechados, com a divisão entre regulares e irregulares e, ao lado, o total de inativos (ATV-036…ATV-040).
 - **Um cartão por grupo:** enviados/total, pendências, estado (aberto, fechado, liberado até…), SG.
 - **Totais da congregação**, a partir de `atv_totais`: relatórios, estudos e horas por categoria.
 - Atalho **"Fechar o mês da congregação"**, habilitado só com todos os grupos fechados, ou com confirmação explícita se faltar algum (ver Q-18).
