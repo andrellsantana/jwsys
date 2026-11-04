@@ -41,7 +41,7 @@ Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
 - **RN-032** Relatório tardio é o retroativo de um mês já fechado na congregação, aprovado pelo SG.
   - Ele vai para a fila do secretário.
   - Se o secretário aceitar: registra a data do aceite e vale para o S-21 e para o status (regular/irregular) do mês original.
-  - Um **retroativo nunca entra num relatório da congregação já fechado**. A inclusão nos totais do próximo relatório depende de Q-14.
+  - Um **retroativo nunca entra num relatório da congregação já fechado**. Ele entra nos totais do **próximo relatório da congregação a ser fechado**, ou seja, o primeiro ainda aberto. Exemplo: o relatório de agosto que chega em dezembro entra no relatório da congregação de novembro.
   - Depois que o mês de envio se encerrou, o relatório da congregação daquele mês fechado **nunca é alterado**.
 - **RN-033** O secretário move publicadores de grupo (com histórico por data de vigência) e define o SG e os ajudantes.
 - **RN-034** Só o secretário lança a assistência (S-3), reunião por reunião. A média mensal é calculada, sem separar presencial de online.
