@@ -90,4 +90,9 @@ Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
   - Lê todos os PDFs de uma pasta e extrai os campos AcroForm: cabeçalho e os 12 meses (participou, estudos, auxiliar, horas, observações).
   - Mostra uma prévia com a conciliação de cada cartão com o cadastro e a lista de divergências antes de gravar.
   - Os registros importados passam a fazer parte do sistema, como meses **fechados** com origem "importado S-21". Eles valem para status, apuração e painéis.
-- **RN-092** Os **formulários online do S-4 e do S-205b reproduzem os modelos do repositório**: mesmos títulos, rótulos, textos, ordem e disposição dos campos. Os campos extras do sistema (Crédito de horas, Grupo, envio em nome de) ficam visualmente separados do formulário oficial.
+- **RN-092** **Formulários online com aparência idêntica ao original.** O S-4 e o S-205b são exibidos como o próprio formulário:
+  - Fundo: a página do PDF oficial do repositório, renderizada em vetor (SVG gerado no build a partir do PDF).
+  - Campos: inputs HTML sobrepostos **exatamente** nas coordenadas dos campos AcroForm do PDF (`/Rect`), com a mesma fonte e o mesmo tamanho.
+  - A folha é escalada proporcionalmente à largura do celular, com zoom permitido (acessibilidade para idosos).
+  - Os campos extras do sistema (Crédito de horas, Grupo, envio em nome de) ficam **fora da folha**, num painel abaixo dela.
+  - Critério de aceite: a comparação visual (Playwright) entre o formulário online e o PDF renderizado tem diferença < ⚙1% fora das áreas de digitação.
