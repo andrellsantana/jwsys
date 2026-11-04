@@ -1,9 +1,9 @@
 # Questões em aberto (rodada 2)
 
-- **Q-01 Ajudante:** quais poderes o ajudante tem? Por exemplo: ver relatórios do grupo e conciliar, mas não aprovar nem fechar?
-- **Q-02 Identidade sem senha:** como o PWA não tem senha, quem tiver o link do grupo pode enviar um relatório com qualquer nome. A conciliação pelo SG basta como controle? Ou cada publicador recebe o próprio link/QR de ativação depois de cadastrado?
-- **Q-03 Troca de celular:** quando o publicador troca de aparelho, o SG refaz a conciliação?
-- **Q-04 Faixas da apuração anual:**
+- ✅ **Q-01 Ajudante:** quais poderes o ajudante tem? Por exemplo: ver relatórios do grupo e conciliar, mas não aprovar nem fechar?
+- ✅ **Q-02 Identidade sem senha:** como o PWA não tem senha, quem tiver o link do grupo pode enviar um relatório com qualquer nome. A conciliação pelo SG basta como controle? Ou cada publicador recebe o próprio link/QR de ativação depois de cadastrado?
+- ✅ **Q-03 Troca de celular:** quando o publicador troca de aparelho, o SG refaz a conciliação?
+- ✅ **Q-04 Faixas da apuração anual:**
   - campo ≥ 600 → continua;
   - 560 ≤ campo < 600 → continua, sem análise;
   - campo < 560, mas campo + crédito ≥ 560 → análise da CS;
@@ -14,3 +14,9 @@
 - **Q-07 Domínio:** usar um domínio próprio ou um subdomínio grátis (`*.pages.dev`)?
 - **Q-08 S-205:** quando o modelo for enviado, revisar os campos da petição.
 - **Q-09 Formato da importação do AS 2026:** enviar um exemplo (anonimizado) do CSV do Google Forms.
+
+## Decisões
+- Q-01: o ajudante não tem nenhum poder; é só um registro.
+- Q-02 e Q-03: ativação por QR individual (RN-002); troca de aparelho = novo QR.
+- Q-04: faixas confirmadas; meta proporcional (RN-054 e RN-057).
+- Infraestrutura: Supabase × GCP/Firebase ainda em decisão (ADR-001).

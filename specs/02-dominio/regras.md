@@ -4,7 +4,11 @@ Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
 
 ## Envio de relatórios (S-4)
 - **RN-001** Cada grupo tem um link próprio para o PWA do S-4.
-- **RN-002** Na primeira abertura, o PWA pede nome e sobrenome e mostra o termo de consentimento. Os dois ficam salvos no aparelho. O aparelho recebe uma identidade anônima.
+- **RN-002** Ativação do aparelho por **QR code individual**:
+  - Depois de cadastrar o publicador, o secretário ou o SG gera um QR de ativação de uso único, com validade ⚙ em horas.
+  - O publicador lê o QR, aceita o termo de consentimento e o aparelho fica vinculado ao cadastro dele. O nome é exibido e guardado no aparelho.
+  - Trocou de aparelho: um novo QR é gerado, e o vínculo anterior é revogado.
+- **RN-002a** Um envio pelo link do grupo **sem ativação** é aceito como "não identificado" e precisa de conciliação pelo SG (RN-010). Isso serve para casos excepcionais.
 - **RN-003** O envio feito até o dia ⚙6 (inclusive) do mês seguinte, de um mês ainda sem relatório, é **aceito** automaticamente.
 - **RN-004** Reenvio e envio retroativo (após o dia ⚙6 ou de qualquer mês passado) ficam **aguardando aprovação** do SG.
 - **RN-005** A recusa exige um motivo, que o publicador vê.
@@ -38,11 +42,12 @@ Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
 - **RN-051** O sistema alerta durante o ano mostrando a **média mensal necessária** = (600 − horas de campo acumuladas) ÷ meses restantes. O cálculo usa sempre 600h.
 - **RN-052** O crédito de horas só vale para atividade aprovada. Limite: horas de campo + crédito ≤ ⚙55h no mês. Não é transferível entre meses. O sistema guarda separadamente as **horas em atividade aprovada (total)** e o **crédito considerado**.
 - **RN-053** O crédito nunca entra no relatório da congregação (Betel). No S-21, Horas = só campo, e Observações = "Atividade aprovada: Xh; crédito considerado: Yh".
-- **RN-054** Apuração do fim do ano em três faixas:
-  - **continua**: campo ≥ ⚙600h, ou campo + crédito ≥ 600h com indicação explícita de que foi pelo crédito;
-  - **análise da CS**: entre ⚙560h e 600h, ou quando o crédito é necessário para chegar lá;
-  - **cancelamento sugerido**: abaixo de 560h.
-  Os limites exatos de cada faixa estão em QUESTÕES Q-04.
+- **RN-054** Apuração do fim do ano em faixas, com M = meta anual ajustada (RN-057) e L = limite de análise ajustado:
+  - campo ≥ M → **continua**;
+  - L ≤ campo < M → **continua**, sem análise;
+  - campo < L, mas campo + crédito ≥ L → **análise da CS**, com indicação explícita de que só chega ao limite por causa do crédito;
+  - campo + crédito < L → **cancelamento sugerido**.
+- **RN-057** **Meta proporcional:** quem passou a ser pioneiro regular no meio do ano, ou deixou de ser, tem M = ⚙600 × (meses como pioneiro ÷ 12) e L = ⚙560 × (meses ÷ 12). Os meses como pioneiro enfermo são excluídos da contagem. A média necessária do RN-051 usa M.
 - **RN-055** O pioneiro enfermo não tem exigência de horas e fica fora dos alertas.
 - **RN-056** Pioneiros especiais e missionários são habilitados pelo secretário. Os relatórios deles são consolidados em separado. O parâmetro ⚙`consolidar_especiais` tem padrão `false`.
 

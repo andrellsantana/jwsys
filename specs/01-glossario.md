@@ -7,7 +7,7 @@
 | **Publicador** | Pessoa cadastrada pelo secretário. Todo ancião, servo, superintendente e secretário também é publicador. |
 | **Grupo** | Divisão da congregação, em quantidade variável (hoje são 4). Tem 1 superintendente e 0 ou mais ajudantes. |
 | **Superintendente de grupo (SG)** | Recebe, concilia, aprova ou recusa relatórios e fecha o mês do grupo. |
-| **Ajudante** | Auxilia o SG. Os poderes **não** são iguais aos do SG (a definir em RN-QUESTÕES). |
+| **Ajudante** | Apenas um registro informativo no grupo. **Não tem nenhum poder** no sistema além dos de publicador. |
 | **Secretário** | Administra tudo e fecha o mês da congregação. |
 | **Comissão de Serviço (CS)** | Aprova petições de pioneiro auxiliar, reativa petições canceladas e analisa pioneiros regulares. |
 | **Envio** | Primeira transmissão do S-4 de um mês, dentro do prazo. É aceito automaticamente. |
