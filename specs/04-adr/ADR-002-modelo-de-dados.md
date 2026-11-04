@@ -53,7 +53,7 @@ atv_peticoesAux/{id}                     S-205b: { pubId, meses: [AAAAMM] | cont
                                        aceiteEletronico | papel: {anexoPath},
                                        criterios: {exemplo, semRestricao, sgConsultado},
                                        aprovacoes: [{membroPubId, em}], estado: pendente|aprovada|recusada|cancelada,
-                                       cancelamento?: {em, automatico, reativadaEm?} }          ATV-022/043/045/046
+                                       cancelamento?: {em, automatico, reativadaEm?} }          ATV-022/ATV-025/ATV-026/ATV-027
 atv_designacoes/{AAAAMM}                 { [pubId]: categoria }  materializado pelas Functions → libera Horas no S-4
 
 reu_assistencia/{AAAA-MM-DD}_{tipo}      { tipo: meio|fim, total }                                   REU-001
