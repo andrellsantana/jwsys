@@ -79,7 +79,7 @@ Dar a todos os módulos, de forma única: **quem é o usuário**, **o que ele po
 > Como **titular dos dados**, quero saber o que aceitei e poder revogar.
 
 - **CA-1** Em Ajuda › Privacidade, o usuário vê o termo aceito (versão e data) e o botão "Revogar consentimento".
-- **CA-2** A revogação pede confirmação na tela, desativa o aparelho, avisa o SEC e fica registrada. Os registros já feitos continuam (base: legítimo interesse/obrigação da congregação; ver Q-26).
+- **CA-2** A revogação pede confirmação na tela, desativa o aparelho, avisa o SEC e fica registrada. **Os relatórios já enviados continuam no sistema** (registros da congregação). Daí em diante, o publicador relata só em papel, e o SG lança "em nome de" (ATV-007). O cadastro mostra a marca "consentimento revogado".
 - **CA-3** Uma nova versão do termo exige novo aceite no próximo acesso.
 
 ### H-NUC-09 Auditoria (NUC-006)
@@ -113,4 +113,4 @@ Dar a todos os módulos, de forma única: **quem é o usuário**, **o que ele po
 | `preencherPdf(modelo, campos)` / `FolhaPdf` (React) | Motor de PDF e formulário sobreposto (ATV-013, ATV-041). |
 
 ## Questões
-- **Q-26 Revogação do consentimento:** depois de revogar, os relatórios já enviados continuam no sistema (obrigação da congregação) e o publicador passa a relatar só em papel/"em nome de"? Ou a revogação leva à anonimização?
+- ✅ Q-26: opção (a) — os registros ficam; daí em diante, o relato é em papel lançado pelo SG.
