@@ -3,13 +3,13 @@
 Decisões de 04/11/2026. Uso em celular e computador (responsivo). Só mostra o grupo supervisionado hoje (CAD-002).
 
 ## UX-SG-001 Painel do mês
-- Cabeçalho: grupo, mês de referência, estado (Aberto / Fechado / Liberado até dd/mm) e **contagem regressiva até o dia 15** ("faltam 4 dias para o fechamento").
+- Cabeçalho: grupo, mês de referência, estado (Aberto / Fechado / Liberado até dd/mm) e **contagem regressiva até o fechamento automático** ("faltam 4 dias — fecha em 16/11 às 00:00").
 - Indicadores clicáveis, cada um filtra o grid:
   - ✓ Enviaram (n/total)
   - ✗ Faltam (lista com nomes)
   - 🔗 Aguardando conciliação
   - ⏳ Aguardando aprovação (em atraso, retroativo, reenvio, offline no prazo)
-- Botão **"Fechar o mês do grupo"**. Antes de fechar, mostra quem falta e as pendências.
+- **Sem botão de fechar:** o painel informa "fecha automaticamente em 16/mm às 00:00" ou, com liberação, "liberado até dd/mm" (ATV-015, ATV-016).
 
 ## UX-SG-002 Aprovar ou recusar em um toque
 - Em cada pendência: **Aprovar** e **Recusar**.

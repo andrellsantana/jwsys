@@ -341,7 +341,7 @@ function renderSG(){
   const faltam=['Cláudia Ramos','Pedro Alves','Carlos Mendes (você)'];
   let h=`<div class="proto">Perfil: superintendente do Grupo 2. Vê só o grupo que supervisiona hoje, com todo o histórico dele.</div>
   <div class="headline"><div><h1>Grupo 2 · Outubro/2026</h1><p class="sub" style="margin:0">${sgFechado?'<span class="pill warn">Fechado</span>':'<span class="pill ok">Aberto</span>'} · hoje ${HOJE}</p></div>
-  <div class="count">${sgFechado?'Mês do grupo fechado':'<b class="num">11</b> dias para o fechamento (15/11)'}</div></div>
+  <div class="count">${sgFechado?'Mês do grupo fechado':'<b class="num">11</b> dias até o fechamento automático (16/11, 00:00)'}</div></div>
   <div class="kpis" role="group" aria-label="Indicadores">
     <button class="kpi ok" data-f="enviados" aria-pressed="${sgFilter==='enviados'}"><b>${enviados}/8</b><span>Enviaram</span></button>
     <button class="kpi bad" data-f="faltam" aria-pressed="${sgFilter==='faltam'}"><b>${faltam.length}</b><span>Faltam</span></button>
@@ -351,8 +351,8 @@ function renderSG(){
   ${sgFilter==='faltam'?`<div class="panel" style="margin-bottom:16px"><h2>Ainda não enviaram</h2><div class="row">${faltam.map(f=>`<span class="pill bad">${f}</span>`).join('')}</div></div>`:''}
   <div class="cols">
    <section aria-label="Pendências"><h2>Pendências</h2><div class="pend">${pend.filter(p=>sgFilter==='concil'?p.concil:sgFilter==='aprov'?!p.concil:true).map(pcard).join('')||'<p class="sub">Nenhuma pendência.</p>'}</div>
-     <div class="row" style="margin-top:12px"><button class="btn primary" id="fechar" ${sgFechado?'disabled':''}>Fechar o mês do grupo</button></div>
-     <div id="fechar-box" hidden class="panel" style="margin-top:10px"><p style="margin-top:0"><b>Antes de fechar:</b> 3 publicadores não enviaram e há ${pend.length} pendências. Quem não enviou ficará como "não relatou".</p><div class="row"><button class="btn primary" id="fechar-ok">Fechar mesmo assim</button><button class="btn" id="fechar-no">Cancelar</button></div></div>
+     <p class="hint" style="margin-top:12px">${sgFechado?'O mês do grupo está fechado. Só aprovar e recusar continuam disponíveis.':'O mês do grupo fecha <b>automaticamente em 16/11 às 00:00</b>. Quem não enviou ficará como "não relatou".'}</p>
+     <button class="btn" id="simfech" style="min-height:36px;font-size:.8em">Simular: ${sgFechado?'mês aberto':'mês fechado'}</button>
    </section>
    <section aria-label="Registros"><h2>Registros do grupo</h2>
      <p class="hint" style="margin:-4px 0 10px">Toque numa linha para inserir dados. No teclado, use <kbd>↑</kbd> <kbd>↓</kbd> para navegar pelos nomes, <kbd>Enter</kbd> para abrir e <kbd>Esc</kbd> para fechar.</p>
@@ -372,11 +372,7 @@ function renderSG(){
   fillGrid();
   app.querySelectorAll('.kpi').forEach(b=>b.onclick=()=>{sgFilter=sgFilter===b.dataset.f?'todos':b.dataset.f;if(sgFilter==='enviados'){q.m='10/2026';q.e='Aceito'}renderSG()});
   bindPend(renderSG);
-  if(!sgFechado){
-    $('#fechar').onclick=()=>{$('#fechar-box').hidden=false};
-    $('#fechar-no').onclick=()=>{$('#fechar-box').hidden=true};
-    $('#fechar-ok').onclick=()=>{sgFechado=true;selRow=null;toast('Mês do Grupo 2 fechado');renderSG()};
-  }
+  $('#simfech').onclick=()=>{sgFechado=!sgFechado;selRow=null;renderSG()};
 }
 let selRow=null;
 const tipoNota={obs:['Observação','info'],saude:['Saúde','warn'],mudou:['Mudou-se','bad'],removido:['Removido','bad'],papel:['Em nome de (papel)','info']};
@@ -492,14 +488,11 @@ let aprov={Roberto:2,Lucia:1};
 function renderCS(){
   let b='';
   if(csTab==='pet'){
-    b=[['Roberto','Roberto Lima','Novembro e dezembro/2026','Pedido em 28/10/2026 · SG consultado'],['Lucia','Lúcia Martins','Continuamente, a partir de janeiro/2027','Pedido em 02/11/2026 · SG consultado']].map(p=>`<article class="pcard"><div class="row" style="justify-content:space-between"><b>${p[1]}</b><span class="pill info">Pioneiro auxiliar · S-205b</span></div><div class="meta">${p[2]} · ${p[3]}</div>
+    b=[['Roberto','Roberto Lima','Novembro e dezembro/2026','Pedido em 28/10/2026','Grupo 2'],['Lucia','Lúcia Martins','Continuamente, a partir de janeiro/2027','Pedido em 02/11/2026','Grupo 4']].map(p=>`<article class="pcard"><div class="row" style="justify-content:space-between"><b>${p[1]}</b><span class="pill info">Pioneiro auxiliar · S-205b</span></div><div class="meta"><b>${p[4]}</b> · ${p[2]} · ${p[3]}</div>
       <div class="row"><div class="prog" aria-label="${aprov[p[0]]} de 3 aprovações">${[0,1,2].map(i=>`<i class="${i<aprov[p[0]]?'on':''}"></i>`).join('')}</div><span class="meta">${aprov[p[0]]} de 3 aprovações (coordenador, secretário, superint. de serviço)</span></div>
-      <fieldset style="border:1px solid var(--line);border-radius:8px;padding:8px 12px"><legend class="meta">Critérios</legend>
-        <label class="toggle" style="min-height:44px"><span>Bom exemplo de vida cristã, boa reputação moral</span><input type="checkbox"></label>
-        <label class="toggle" style="min-height:44px"><span>Não repreendido nem readmitido nos últimos 12 meses; sem restrições</span><input type="checkbox"></label>
-        <label class="toggle" style="min-height:44px"><span>Superintendente do grupo consultado</span><input type="checkbox" checked></label></fieldset>
+      <ol class="hint" style="margin:0;padding-left:1.2em;font-size:.75em"><li>O peticionário é um bom exemplo de vida cristã, tendo boa reputação moral?</li><li>Pessoas repreendidas ou readmitidas nos últimos 12 meses ou sob restrições não se qualificam.</li><li>O superintendente do grupo do peticionário foi consultado?</li></ol>
       <div class="row"><button class="btn ok" data-ap="${p[0]}">Aprovar (minha parte)</button><button class="btn bad" data-x>Recusar</button></div></article>`).join('')+
-      `<article class="pcard"><div class="row" style="justify-content:space-between"><b>Ana Souza</b><span class="pill bad">Cancelada automaticamente</span></div><div class="meta">Contínua desde set/2026 · 22h em outubro (meta 30h)</div><div class="row"><button class="btn" data-x>Reativar</button></div></article>`;
+      `<article class="pcard"><div class="row" style="justify-content:space-between"><b>Ana Souza</b><span class="pill bad">Cancelada automaticamente</span></div><div class="meta"><b>Grupo 3</b> · Contínua desde set/2026 · 22h em outubro (meta 30h)</div><div class="row"><button class="btn" data-x>Reativar</button></div></article>`;
     b=`<p class="sub">S-205b · Petição para o Serviço de <b>Pioneiro Auxiliar</b>. Petições de pioneiro regular não passam por esta fila.</p><div class="pend">${b}</div>`;
   } else {
     const r=apur.filter(a=>!faixa||a[6]===faixa);

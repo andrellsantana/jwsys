@@ -4,9 +4,9 @@ Decisões de 04/11/2026. Acesso restrito aos membros da CS (CAD).
 
 ## UX-CS-001 Petições de pioneiro auxiliar
 - A fila se chama **"Petições de pioneiro auxiliar"** em todas as telas, e cada cartão leva a etiqueta "Pioneiro auxiliar · S-205b".
-- Fila de petições pendentes: publicador, meses ou "continuamente", data, SG consultado.
+- Fila de petições pendentes: publicador, **grupo do peticionário**, meses ou "continuamente" e data.
 - A petição é exibida como o S-205b original (ATV-013).
-- Os 3 critérios da comissão aparecem como confirmação explícita.
+- Os 3 critérios da comissão aparecem **só listados, em letra pequena**, como no S-205b, sem caixas para marcar.
 - Cada membro (coordenador, secretário, superintendente de serviço) aprova **em separado**, e a tela mostra o progresso ("2 de 3 aprovações"). Recusa com motivo (ATV-022a).
 - Petições em papel verificadas automaticamente aparecem com a marca "papel verificado" e a imagem (ATV-027a).
 - Petições canceladas automaticamente (ATV-025) aparecem com o botão "Reativar".

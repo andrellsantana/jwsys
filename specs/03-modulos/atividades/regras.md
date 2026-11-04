@@ -27,8 +27,8 @@ Os valores marcados com `⚙` vêm de Parâmetros (PAR-001). O ID antigo aparece
   - Os campos extras do sistema (Crédito de horas, Grupo, envio em nome de) ficam **fora da folha**, num painel abaixo dela.
   - Critério de aceite: a comparação visual (Playwright) entre o formulário online e o PDF renderizado tem diferença < ⚙1% fora das áreas de digitação.
 - **ATV-014** _(RN-021)_ O SG não altera os números enviados pelo publicador.
-- **ATV-015** _(RN-022)_ O fechamento do grupo é manual até o dia ⚙15. No dia ⚙16, às 00:00, fecha automaticamente. Quem não enviou fica como "não relatou".
-- **ATV-016** _(RN-023)_ O fechamento do grupo restringe somente o SG. Para editar depois disso, o SG pede uma liberação temporária ao secretário, que define a data do novo bloqueio.
+- **ATV-015** _(RN-022)_ O fechamento do grupo é **somente automático**: no dia ⚙16, às 00:00. O SG **não tem** botão para fechar. Quem não enviou fica como "não relatou".
+- **ATV-016** _(RN-023)_ O fechamento do grupo restringe somente o SG. Para editar depois disso, o SG pede uma liberação temporária ao secretário, que define a data do novo bloqueio. Quando essa data termina, o grupo **fecha de novo automaticamente**.
 - **ATV-017** _(RN-024)_ **Aprovação após o fechamento do grupo:** o SG pode aprovar envios em atraso, retroativos e reenvios recebidos depois que o grupo fechou, sem precisar de liberação temporária. O relatório aprovado fica **na fila de processamento** e só é processado no ciclo do próximo mês. Ele entra no próximo relatório da congregação e no S-21 e status do mês original, com a data registrada. O secretário vê essa fila (ATV-021).
 - **ATV-018** _(RN-037)_ **Autoaprovação:** o SG aprova os próprios envios em atraso, retroativos e reenvios, inclusive quando é também o secretário. A decisão é marcada como "autoaprovação" na auditoria.
 - **ATV-019** _(RN-030)_ O fechamento da congregação acontece até o dia ⚙20 e trava o mês para todos.

@@ -16,7 +16,7 @@
 | **Envio retroativo** | Envio depois do fim do mês seguinte ao da atividade. Exige aprovação do SG. |
 | **Envio em nome de** | Relatório enviado por terceiro, com registro de quem enviou e da justificativa. |
 | **Conciliação** | O SG associa o nome digitado no relatório a um publicador do cadastro. |
-| **Fechamento do grupo** | Trava as edições do SG no mês. Prazo: dia 15. Fecha automaticamente no dia 16. |
+| **Fechamento do grupo** | Trava as edições do SG no mês. É sempre automático: dia 16 às 00:00, ou no fim de uma liberação temporária. |
 | **Liberação temporária** | O secretário reabre o grupo para o SG até uma data, com novo bloqueio automático. |
 | **Fechamento da congregação** | Trava o mês inteiro. Prazo: dia 20. Só o secretário pode reabrir. |
 | **Relatório tardio** | Retroativo de um mês já fechado na congregação. Se o secretário aceitar, entra no relatório da congregação do mês seguinte. |
