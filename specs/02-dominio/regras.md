@@ -9,8 +9,8 @@ Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
   - O publicador lê o QR, aceita o termo de consentimento e o aparelho fica vinculado ao cadastro dele. O nome é exibido e guardado no aparelho.
   - Trocou de aparelho: um novo QR é gerado, e o vínculo anterior é revogado.
 - **RN-002a** Um envio pelo link do grupo **sem ativação** é aceito como "não identificado" e precisa de conciliação pelo SG (RN-010). Isso serve para casos excepcionais.
-- **RN-003** O envio feito até o dia ⚙6 (inclusive) do mês seguinte, de um mês ainda sem relatório, é **aceito** automaticamente.
-- **RN-003a** **Bloqueio do dia ⚙7**, às 00:00: o envio normal do publicador é encerrado. Do dia 7 ao dia 15, o SG analisa e aprova os relatórios recebidos.
+- **RN-003** O envio no prazo (até o dia ⚙6) de um aparelho **ativado** é **aceito** automaticamente. Um envio **não identificado** (RN-002a) fica **aguardando conciliação** pelo SG, que concilia e aceita, ou recusa com motivo.
+- **RN-003a** **Bloqueio do dia ⚙7**, às 00:00: encerra o prazo normal. Os envios feitos até o dia 6 continuam com a sua classificação, e só os posteriores exigem aprovação. Do dia 7 ao dia 15, o SG faz as conciliações pendentes e as aprovações.
 - **RN-004** Classificação pela data de envio, para um mês de atividade M (o envio normal é no mês M+1):
   - **No prazo:** até o dia ⚙6 de M+1. Aceito automaticamente (RN-003).
   - **Em atraso:** do dia 7 ao último dia de M+1. Aguarda aprovação do SG.
@@ -29,6 +29,7 @@ Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
 - **RN-021** O SG não altera os números enviados pelo publicador.
 - **RN-022** O fechamento do grupo é manual até o dia ⚙15. No dia ⚙16, às 00:00, fecha automaticamente. Quem não enviou fica como "não relatou".
 - **RN-023** O fechamento do grupo restringe somente o SG. Para editar depois disso, o SG pede uma liberação temporária ao secretário, que define a data do novo bloqueio.
+- **RN-024** **Aprovação após o fechamento do grupo:** o SG pode aprovar envios em atraso, retroativos e reenvios recebidos depois que o grupo fechou, sem precisar de liberação temporária. O relatório aprovado fica **na fila de processamento** e só é processado no ciclo do próximo mês. Ele entra no próximo relatório da congregação e no S-21 e status do mês original, com a data registrada. O secretário vê essa fila (RN-032).
 
 ## Secretário e congregação
 - **RN-030** O fechamento da congregação acontece até o dia ⚙20 e trava o mês para todos.
@@ -55,7 +56,7 @@ Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
 - **RN-043** Um auxiliar por tempo indeterminado abaixo da meta tem a petição **cancelada automaticamente**. A CS pode reativá-la.
 - **RN-044** Os meses especiais são marcados pelo secretário em uma agenda, à medida que forem anunciados.
 - **RN-045** **Designação de pioneiro auxiliar:** o publicador é pioneiro auxiliar no mês M se, e somente se, existir uma petição **aprovada pela CS** que cubra M, seja pelos meses listados no S-205b ou por "continuamente" a partir do mês inicial, enquanto não for cancelada. Esse vínculo é o que libera o campo Horas no S-4 e o que define a categoria nas totalizações.
-- **RN-046** O secretário pode lançar manualmente uma petição em papel já assinada e aprovada. Ele marca "petição física arquivada" e informa a data e os membros da CS que aprovaram. O sistema registra o lançamento na auditoria.
+- **RN-046** O secretário pode lançar manualmente uma petição em papel já assinada e aprovada. Ele marca "petição física arquivada" e informa a data e os membros da CS que aprovaram. O sistema registra o lançamento na auditoria. É obrigatório anexar a **digitalização da petição assinada** (PDF ou imagem, até ⚙5 MB), guardada no Cloud Storage em `southamerica-east1`, com acesso restrito ao secretário e à CS.
 - **RN-050** O pioneiro regular tem meta anual de ⚙600h (referência de ⚙50h por mês).
 - **RN-051** O sistema alerta durante o ano mostrando a **média mensal necessária** = (600 − horas de campo acumuladas) ÷ meses restantes. O cálculo usa sempre 600h.
 - **RN-052** O crédito de horas só vale para atividade aprovada. Limite: horas de campo + crédito ≤ ⚙55h no mês. Não é transferível entre meses. O sistema guarda separadamente as **horas em atividade aprovada (total)** e o **crédito considerado**.
