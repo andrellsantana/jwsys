@@ -24,8 +24,26 @@
   --accent:#8cc1db; --accent-fg:#10202a; --accent-soft:#213845;
   --ok:#7fcca1; --ok-soft:#1c3328; --warn:#e3bd73; --warn-soft:#382d18; --bad:#eb9a9a; --bad-soft:#3a2224;
   --sel:#22313b; --shadow:0 1px 2px rgba(0,0,0,.25); color-scheme:dark}
-:root.contraste{--fg:#000;--muted:#1a1a1a;--line:#000;--accent:#003a5c;--bg:#fff;--surface:#fff;--surface-2:#eee}
-:root.contraste[data-theme="dark"]{--fg:#fff;--muted:#f0f0f0;--line:#fff;--accent:#9fd8ff;--accent-fg:#000;--bg:#000;--surface:#000;--surface-2:#111}
+/* Paletas opcionais (o padrão é Azul sereno) */
+:root[data-palette="salvia"]{--bg:#f5f8f5;--surface-2:#edf3ee;--line:#e0e8e2;--accent:#5a8a6e;--accent-soft:#e5f1e9;--sel:#eff6f1}
+:root[data-palette="lavanda"]{--bg:#f7f6fa;--surface-2:#f0eef6;--line:#e5e2ee;--accent:#7a6fa8;--accent-soft:#eeebf7;--sel:#f4f2fa}
+:root[data-palette="areia"]{--bg:#f9f7f4;--surface-2:#f3efe9;--line:#ebe4da;--accent:#a8775a;--accent-soft:#f6ece4;--sel:#faf4ef}
+:root[data-palette="grafite"]{--bg:#f6f7f8;--surface-2:#eef0f2;--line:#e2e5e8;--accent:#56636f;--accent-soft:#e9ecef;--sel:#f1f3f5}
+@media (prefers-color-scheme: dark){
+:root[data-palette="salvia"]:not([data-theme="light"]){--bg:#141a17;--surface-2:#222d27;--line:#2b3830;--accent:#94c9a8;--accent-fg:#102018;--accent-soft:#20372b;--sel:#213129}
+:root[data-palette="lavanda"]:not([data-theme="light"]){--bg:#17161d;--surface-2:#28263a;--line:#33304a;--accent:#b6acdf;--accent-fg:#1a1630;--accent-soft:#2e2a47;--sel:#2a2740}
+:root[data-palette="areia"]:not([data-theme="light"]){--bg:#1b1815;--surface-2:#2e2822;--line:#3a332c;--accent:#dcae90;--accent-fg:#2a1a10;--accent-soft:#3c2c22;--sel:#33291f}
+:root[data-palette="grafite"]:not([data-theme="light"]){--bg:#16191c;--surface-2:#262b30;--line:#30363c;--accent:#b4c0cb;--accent-fg:#14181c;--accent-soft:#2c333a;--sel:#262d33}}
+:root[data-palette="salvia"][data-theme="dark"]{--bg:#141a17;--surface-2:#222d27;--line:#2b3830;--accent:#94c9a8;--accent-fg:#102018;--accent-soft:#20372b;--sel:#213129}
+:root[data-palette="lavanda"][data-theme="dark"]{--bg:#17161d;--surface-2:#28263a;--line:#33304a;--accent:#b6acdf;--accent-fg:#1a1630;--accent-soft:#2e2a47;--sel:#2a2740}
+:root[data-palette="areia"][data-theme="dark"]{--bg:#1b1815;--surface-2:#2e2822;--line:#3a332c;--accent:#dcae90;--accent-fg:#2a1a10;--accent-soft:#3c2c22;--sel:#33291f}
+:root[data-palette="grafite"][data-theme="dark"]{--bg:#16191c;--surface-2:#262b30;--line:#30363c;--accent:#b4c0cb;--accent-fg:#14181c;--accent-soft:#2c333a;--sel:#262d33}
+.palettes{display:flex;gap:6px;align-items:center}
+.palettes button{width:28px;height:28px;border-radius:50%;border:2px solid var(--surface);box-shadow:0 0 0 1px var(--line);cursor:pointer;padding:0}
+.palettes button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--fg)}
+.palettes span{font-size:.8em;color:var(--muted);margin-right:2px}
+:root.contraste:not(#_){--fg:#000;--muted:#1a1a1a;--line:#000;--accent:#003a5c;--bg:#fff;--surface:#fff;--surface-2:#eee}
+:root.contraste[data-theme="dark"]:not(#_){--fg:#fff;--muted:#f0f0f0;--line:#fff;--accent:#9fd8ff;--accent-fg:#000;--bg:#000;--surface:#000;--surface-2:#111}
 :root.fonte-grande{--fs:20px}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:var(--f-ui);font-size:var(--fs);line-height:1.45;margin:0}
@@ -184,7 +202,13 @@ nav.side button[aria-current="true"]{background:var(--accent-soft);color:var(--a
 
 <header class="top"><div class="wrap">
   <div class="brand">JWSys <small>Protótipo navegável · dados fictícios</small></div>
-  <nav class="roles" aria-label="Perfil">
+  <div class="palettes" role="group" aria-label="Paleta de cores"><span id="palname">Paleta</span>
+      <button data-pal="" style="background:#4a86a6" aria-label="Azul sereno" title="Azul sereno"></button>
+      <button data-pal="salvia" style="background:#5a8a6e" aria-label="Verde sálvia" title="Verde sálvia"></button>
+      <button data-pal="lavanda" style="background:#7a6fa8" aria-label="Lavanda" title="Lavanda"></button>
+      <button data-pal="areia" style="background:#a8775a" aria-label="Areia" title="Areia"></button>
+      <button data-pal="grafite" style="background:#56636f" aria-label="Grafite" title="Grafite"></button>
+    </div><nav class="roles" aria-label="Perfil">
     <a href="#publicador">Publicador</a><a href="#sg">Superintendente</a><a href="#secretario">Secretário</a><a href="#cs">Comissão</a>
   </nav>
 </div></header>
@@ -202,6 +226,9 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
 const ap=Object.assign({grande:false,contraste:false,escuro:false},store('ap')||{});
 function applyAp(){const r=document.documentElement;r.classList.toggle('fonte-grande',ap.grande);r.classList.toggle('contraste',ap.contraste);if(ap.escuro)r.setAttribute('data-theme','dark');else if(r.getAttribute('data-theme')==='dark'&&ap._set)r.removeAttribute('data-theme');}
 applyAp();
+function applyPal(p){const r=document.documentElement;if(p)r.setAttribute('data-palette',p);else r.removeAttribute('data-palette');document.querySelectorAll('[data-pal]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.pal===p));const b=document.querySelector(`[data-pal="${p}"]`);if(b)document.getElementById('palname').textContent=b.title;}
+applyPal(store('pal')||'');
+document.querySelectorAll('[data-pal]').forEach(b=>b.onclick=()=>{store('pal',b.dataset.pal);applyPal(b.dataset.pal)});
 
 /* ----- Dados fictícios ----- */
 const HOJE='04/11/2026';
