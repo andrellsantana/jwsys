@@ -93,6 +93,7 @@ Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
 - **RN-082** Auditoria de toda alteração: quem, quando, antes e depois, e motivo.
 - **RN-090** Parâmetros versionados por vigência e editáveis só pelo secretário.
 - **RN-091** **Importação do AS 2026 a partir dos S-21 em PDF:**
+  - Os cartões de origem são PDFs editáveis, preenchidos digitalmente (Q-11), então **não precisa de OCR**.
   - Lê todos os PDFs de uma pasta e extrai os campos AcroForm: cabeçalho e os 12 meses (participou, estudos, auxiliar, horas, observações).
   - Mostra uma prévia com a conciliação de cada cartão com o cadastro e a lista de divergências antes de gravar.
   - Os registros importados passam a fazer parte do sistema, como meses **fechados** com origem "importado S-21". Eles valem para status, apuração e painéis.
