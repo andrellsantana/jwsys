@@ -47,3 +47,8 @@
 - ✅ **Q-19 CS no sistema:** a CS aprova as petições na própria tela (cada membro registra a aprovação) ou o secretário registra a aprovação em nome dela?
 - ✅ **Q-20 S-21 em lote:** gerar todos os S-21 do ano de serviço num ZIP é útil? Para quando (fim do AS, transferência, sob demanda)?
 - Rodada 5: Q-18 → ATV-019a; Q-19 → ATV-022a, ATV-027a, CAD-005; Q-20 → ATV-041a. Linguagem: TypeScript (ADR-001). Protótipos: 100% responsivos.
+
+## Rodada 6 (ADR-003 e UX)
+- **Q-21 Paleta:** fixar uma paleta como identidade do sistema ou deixar cada pessoa escolher a sua em Ajuda › Aparência?
+- **Q-22 Atribuição manual:** além das designações (coordenador, secretário, SS, SG), o secretário pode dar um papel a alguém sem designação formal (ex.: um ancião para ajudar a lançar o S-3)? Com prazo de validade?
+- **Q-23 Anciãos e servos no sistema:** os anciãos que não são da CS nem SG precisam de algum acesso no MVP (ex.: consulta)?

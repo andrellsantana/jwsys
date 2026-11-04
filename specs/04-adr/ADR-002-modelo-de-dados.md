@@ -1,6 +1,6 @@
 # ADR-002 — Modelo de dados (Firestore) e segurança
 
-**Status:** ACEITO (04/11/2026).
+**Status:** ACEITO (04/11/2026). O formato dos claims de papéis é substituído pelo ADR-003, quando aceito.
 
 ## Princípios
 0. **Prefixo do módulo** em toda coleção (`nuc_`, `par_`, `cad_`, `reu_`, `atv_`). Cada módulo só grava nas próprias coleções e lê as de outros via contrato (MAPA.md).
