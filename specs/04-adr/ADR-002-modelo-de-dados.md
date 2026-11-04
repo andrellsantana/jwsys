@@ -78,6 +78,6 @@ auditoria/{id}                       { quem, papelUsado, quando, acao, alvo, ant
 - Todo acesso exige **App Check**.
 
 ## Riscos e mitigações
-- **Mudança de grupo no meio do ano:** `relatorios.grupoId` é gravado com o grupo **do mês**, para que o histórico do SG anterior não vaze nem suma.
+- **Visibilidade por grupo, não por pessoa (RN-036):** `relatorios.grupoId` é gravado com o grupo **do mês**. A regra é `resource.data.grupoId == token.sgDe`: o SG atual vê **todo o histórico do grupo** que supervisiona hoje, inclusive de quem já saiu dele, e perde o acesso ao grupo anterior no mesmo instante em que é trocado (os claims são revogados e reemitidos).
 - **Relógio do aparelho:** a classificação usa o `recebidoEm` do servidor. O `criadoNoAparelhoEm` fica só como informação (Q-15).
 - **Custos:** índices compostos só onde houver consulta real. Nenhuma consulta de coleção inteira nos painéis.

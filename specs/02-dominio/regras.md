@@ -45,6 +45,9 @@ Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
   - Depois que o mês de envio se encerrou, o relatório da congregação daquele mês fechado **nunca é alterado**.
 - **RN-033** O secretário move publicadores de grupo (com histórico por data de vigência) e define o SG e os ajudantes.
 - **RN-035** **Papéis acumuláveis:** uma pessoa é sempre publicador e pode acumular os papéis de SG de um grupo (inclusive um grupo diferente do seu), secretário e membro da CS. Exemplo: o secretário também é SG do Grupo 2. Cada ação registra na auditoria **com qual papel** foi feita. As telas oferecem a troca de papel (Publicador / SG do Grupo X / Secretaria / CS).
+- **RN-036** **Visibilidade do SG = o grupo que ele supervisiona hoje, com todo o histórico desse grupo.** Cada relatório guarda o grupo a que o publicador pertencia **naquele mês**.
+  - Exemplo: o SG passa do Grupo 1 para o Grupo 4. Ele deixa de ver o Grupo 1 imediatamente. No Grupo 4, vê todos os relatórios de todos os meses, inclusive de Silvia e Jandira, que saíram do grupo, e os atuais de Claudia e Roberto.
+  - Os meses de Claudia e Roberto anteriores à entrada deles no Grupo 4 pertencem ao grupo de origem (ver Q-17).
 - **RN-034** Só o secretário lança a assistência (S-3), reunião por reunião. A média mensal é calculada, sem separar presencial de online.
 
 ## Pioneiros
