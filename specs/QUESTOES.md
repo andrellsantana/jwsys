@@ -31,3 +31,4 @@
 - ✅ **Q-12 Petição em papel:** anexar a digitalização da petição em papel? Isso usa o Cloud Storage em São Paulo, com custo de centavos.
 - ✅ **Q-13 Atraso após o fechamento do grupo:** um envio em atraso que chega entre os dias 16 e 31, com o grupo já fechado: o SG aprova sem precisar de liberação temporária? E se o mês já estiver fechado na congregação (depois do dia 20), entra como tardio no próximo relatório?
 - Decisões da rodada 3: Q-10 → RN-003 e RN-003a (aprovação só a partir do dia 7; os não identificados aguardam conciliação). Q-12 → RN-046 (anexo obrigatório). Q-13 → RN-024 (fila para o próximo ciclo).
+- **Q-14 Retroativo nos totais:** na 1ª rodada você disse que o retroativo aceito "deverá constar no próximo relatório da congregação". Agora ficou "somente no S-21". Ele entra nos totais do próximo relatório da congregação aberto, ou fica **apenas** no S-21?

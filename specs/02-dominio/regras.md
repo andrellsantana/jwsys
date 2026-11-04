@@ -33,10 +33,15 @@ Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
 
 ## Secretário e congregação
 - **RN-030** O fechamento da congregação acontece até o dia ⚙20 e trava o mês para todos.
-- **RN-031** O secretário pode reabrir o mês da congregação **somente para si**, com motivo e registro na auditoria. Isso **não** reabre os grupos. Para reabrir um grupo específico, vale a liberação temporária do RN-023.
+- **RN-031** O S-21 e o relatório da congregação são **registros distintos**:
+  - O S-21 sempre mostra a atividade no mês em que ela aconteceu.
+  - O relatório da congregação de um mês pode ser fechado e reaberto pelo secretário **somente até o fim do mês de envio** (M+1), com motivo e registro na auditoria. A reabertura vale só para o secretário e não reabre os grupos (para isso, RN-023).
+  - Com o relatório reaberto, os envios **em atraso** aprovados pelo SG podem entrar nele, se o **secretário aprovar**.
+  - Depois do fim de M+1, o relatório da congregação fica definitivamente imutável.
 - **RN-032** Relatório tardio é o retroativo de um mês já fechado na congregação, aprovado pelo SG.
   - Ele vai para a fila do secretário.
-  - Se o secretário aceitar: registra a data do aceite, vale para o S-21 e para o status (regular/irregular) do mês original, e entra no **próximo** relatório da congregação.
+  - Se o secretário aceitar: registra a data do aceite e vale para o S-21 e para o status (regular/irregular) do mês original.
+  - Um **retroativo nunca entra num relatório da congregação já fechado**. A inclusão nos totais do próximo relatório depende de Q-14.
   - Depois que o mês de envio se encerrou, o relatório da congregação daquele mês fechado **nunca é alterado**.
 - **RN-033** O secretário move publicadores de grupo (com histórico por data de vigência) e define o SG e os ajudantes.
 - **RN-034** Só o secretário lança a assistência (S-3), reunião por reunião. A média mensal é calculada, sem separar presencial de online.
