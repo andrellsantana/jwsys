@@ -50,7 +50,8 @@ Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
 - **RN-035** **Papéis acumuláveis:** uma pessoa é sempre publicador e pode acumular os papéis de SG de um grupo (inclusive um grupo diferente do seu), secretário e membro da CS. Exemplo: o secretário também é SG do Grupo 2. Cada ação registra na auditoria **com qual papel** foi feita. As telas oferecem a troca de papel (Publicador / SG do Grupo X / Secretaria / CS).
 - **RN-036** **Visibilidade do SG = o grupo que ele supervisiona hoje, com todo o histórico desse grupo.** Cada relatório guarda o grupo a que o publicador pertencia **naquele mês**.
   - Exemplo: o SG passa do Grupo 1 para o Grupo 4. Ele deixa de ver o Grupo 1 imediatamente. No Grupo 4, vê todos os relatórios de todos os meses, inclusive de Silvia e Jandira, que saíram do grupo, e os atuais de Claudia e Roberto.
-  - Os meses de Claudia e Roberto anteriores à entrada deles no Grupo 4 pertencem ao grupo de origem (ver Q-17).
+  - Os meses anteriores à entrada de Claudia e Roberto no Grupo 4 **não são visíveis** para o SG do Grupo 4: eles pertencem ao grupo de origem. O SG vê apenas o **histórico de status** deles (ativo/inativo; regular/irregular/inativo, mês a mês), calculado pelo sistema, sem os números dos relatórios.
+- **RN-037** **Autoaprovação:** o SG aprova os próprios envios em atraso, retroativos e reenvios, inclusive quando é também o secretário. A decisão é marcada como "autoaprovação" na auditoria.
 - **RN-034** Só o secretário lança a assistência (S-3), reunião por reunião. A média mensal é calculada, sem separar presencial de online.
 
 ## Pioneiros

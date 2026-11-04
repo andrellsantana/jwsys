@@ -1,6 +1,6 @@
 # ADR-002 — Modelo de dados (Firestore) e segurança
 
-**Status:** proposto.
+**Status:** ACEITO (04/11/2026).
 
 ## Princípios
 1. **O cliente quase não escreve.** As únicas gravações diretas são a criação de envios do S-4, para que a fila offline do SDK funcione (RN-009). Todo o resto (aprovar, conciliar, fechar, cadastrar) passa por **Cloud Functions callable**, que validam as regras e gravam a auditoria.
@@ -22,6 +22,7 @@ publicadores/{pubId}                 dados S-21 + cadastro (endereço, contatos,
                                        status: {valor: regular|irregular|inativo, calculadoEm} }
   /historicoGrupo/{id}               { grupoId, vigenteDesde }                                    RN-033
   /consentimentos/{id}               { versaoTermo, aceitoEm, revogadoEm? }                       RN-080
+  /statusHistorico/{AAAAMM}        { status, situacao }  legível pelo SG atual do publicador (RN-036)
   /saude/{id}                        { descricao, desde, ate?, registradoPor }                    RN-020
 
 aparelhos/{uid}                      { pubId, ativadoEm, revogadoEm? }                            RN-002
@@ -71,7 +72,7 @@ auditoria/{id}                       { quem, papelUsado, quando, acao, alvo, ant
 ## Security Rules (resumo)
 - **Publicador:** lê `publicadores/{seuPubId}`, `relatorios/{seuPubId}_*` com seus `envios`, `designacoes/{mes}` (só a própria chave) e `parametros`. **Cria** `envios` sob o próprio relatório, com campos em whitelist, `uid == request.auth.uid` e `recebidoEm == request.time`. Não pode atualizar nem apagar nada.
 - **Anônimo pelo link do grupo:** só cria `enviosNaoIdentificados` com `grupoId` válido. Não lê nada.
-- **SG:** lê publicadores e relatórios onde `grupoId == token.sgDe` (e o próprio relatório como publicador). Não escreve nada direto: tudo passa por callables.
+- **SG:** lê publicadores e relatórios onde `grupoId == token.sgDe` (e o próprio relatório como publicador). Dos publicadores atuais do grupo, lê também `statusHistorico/*` completo, sem acesso aos relatórios de outros grupos. Decisões sobre os próprios envios são marcadas `autoaprovacao` (RN-037). Não escreve nada direto: tudo passa por callables.
 - **Secretário:** lê tudo. Escreve só via callables. MFA obrigatório (`token.firebase.sign_in_second_factor`).
 - **CS:** lê `peticoesAux` e `apuracaoPioneiros`. Aprova via callable.
 - `auditoria`, `fechamentos` e `totais`: escrita só por Functions (Admin SDK).
