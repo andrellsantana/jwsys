@@ -1,6 +1,6 @@
 # ADR-003 — Papéis e permissões extensíveis
 
-**Status:** proposto (04/11/2026).
+**Status:** ACEITO (04/11/2026).
 
 ## Contexto
 - Hoje existem os papéis publicador, SG, secretário e CS. A CS é composta por coordenador, secretário e superintendente de serviço (CAD-005).
@@ -81,10 +81,14 @@ nuc_papeis/{papel}      catálogo gerado dos manifestos (somente leitura)
 - É uma **conta técnica separada**, distinta do login pessoal do mesmo indivíduo. Como membro da congregação, a pessoa entra com o login normal e só os poderes concedidos.
 - Pode: parâmetros, papéis e concessões, catálogo de módulos, backups e restauração, auditoria completa, reabertura de emergência.
 - Exige: **MFA obrigatório** (chave de segurança ou TOTP), sessão curta (⚙ 30 min sem uso), aviso visual permanente "Modo administrador", e **toda ação auditada** com destaque.
-- O acesso do master aos dados sensíveis dos módulos futuros (PAS, CTA) está em aberto (Q-24).
+- **Vê tudo**, inclusive os dados sensíveis dos módulos futuros (PAS, CTA), mas só depois de aceitar o **termo de confidencialidade** (versionado; aceite com data e hora; novo aceite a cada nova versão). Sem o aceite vigente, a conta master fica bloqueada (Q-24).
 
-### 8. Desconexão em tempo real ao mudar papéis
-Quando os perfis ou papéis de um usuário mudam (concessão, revogação, troca de grupo, fim de vigência):
+### 8. Desconexão em tempo real ao perder poderes (Q-25)
+- **Perdeu algum poder** (revogação, fim de vigência, troca de grupo, aparelho revogado) → **desconexão imediata**, conforme abaixo.
+- **Ganhou um poder** → sem desconexão. O app renova o token em segundo plano e mostra "Você recebeu novas permissões".
+- **Trocar o papel ativo na tela** (ex.: Publicador → SG) → sem desconexão.
+
+Ao perder um poder:
 1. A função grava `nuc_sessoes/{uid}.versao++`, recalcula os claims e chama `revokeRefreshTokens(uid)`.
 2. O app escuta `nuc_sessoes/{uid}` em tempo real (`onSnapshot`). Ao detectar a mudança, faz **logout imediato**, com a mensagem "Suas permissões mudaram. Entre novamente."
 3. **No servidor**, as rules exigem `request.auth.token.v == get(nuc_sessoes/uid).data.versao` e as Functions verificam o token com `checkRevoked: true`. Um token antigo é recusado na hora, mesmo que o app não esteja aberto.
