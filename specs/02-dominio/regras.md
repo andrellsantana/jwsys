@@ -1,0 +1,66 @@
+# Catálogo de Regras de Negócio
+
+Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
+
+## Envio de relatórios (S-4)
+- **RN-001** Cada grupo tem um link próprio para o PWA do S-4.
+- **RN-002** Na primeira abertura, o PWA pede nome e sobrenome e mostra o termo de consentimento. Os dois ficam salvos no aparelho. O aparelho recebe uma identidade anônima.
+- **RN-003** O envio feito até o dia ⚙6 (inclusive) do mês seguinte, de um mês ainda sem relatório, é **aceito** automaticamente.
+- **RN-004** Reenvio e envio retroativo (após o dia ⚙6 ou de qualquer mês passado) ficam **aguardando aprovação** do SG.
+- **RN-005** A recusa exige um motivo, que o publicador vê.
+- **RN-006** Todo envio registra a data e a hora da transmissão, o tipo (envio, reenvio ou retroativo), o aparelho e o autor.
+- **RN-007** O envio em nome de outro exige que o remetente se identifique e escreva uma justificativa.
+- **RN-008** O publicador vê no celular a lista dos próprios envios e o status de cada um: aceito, aguardando ou recusado.
+- **RN-009** O rascunho fica salvo no aparelho. Sem conexão, o envio entra em uma fila que é transmitida quando a conexão voltar.
+- **RN-010** O SG concilia o nome do relatório com o publicador cadastrado. A conciliação vincula o aparelho ao publicador para os envios futuros.
+- **RN-011** O campo Horas só aparece para pioneiro auxiliar, regular ou especial. O Crédito de horas só aparece para pioneiro regular.
+
+## Superintendente de grupo
+- **RN-020** O SG pode acrescentar observações e registrar saúde, mudança e remoção, cada uma com data. O secretário também pode ajustar esses três últimos.
+- **RN-021** O SG não altera os números enviados pelo publicador.
+- **RN-022** O fechamento do grupo é manual até o dia ⚙15. No dia ⚙16, às 00:00, fecha automaticamente. Quem não enviou fica como "não relatou".
+- **RN-023** O fechamento do grupo restringe somente o SG. Para editar depois disso, o SG pede uma liberação temporária ao secretário, que define a data do novo bloqueio.
+
+## Secretário e congregação
+- **RN-030** O fechamento da congregação acontece até o dia ⚙20 e trava o mês para todos.
+- **RN-031** O secretário pode reabrir um mês fechado, sempre com motivo e registro na auditoria.
+- **RN-032** Um retroativo aprovado pelo SG de um mês já fechado na congregação vai para a fila de **relatórios tardios**. Se o secretário aceitar, ele entra no relatório da congregação do próximo mês aberto e também no S-21 do mês original.
+- **RN-033** O secretário move publicadores de grupo (com histórico por data de vigência) e define o SG e os ajudantes.
+- **RN-034** Só o secretário lança a assistência (S-3), reunião por reunião. A média mensal é calculada, sem separar presencial de online.
+
+## Pioneiros
+- **RN-040** A petição de pioneiro auxiliar (S-205) pode ser para 1 mês, vários meses ou tempo indeterminado. Só a CS aprova.
+- **RN-041** A meta do auxiliar é ⚙15h em mês especial e ⚙30h nos demais meses.
+- **RN-042** Um auxiliar abaixo da meta conta como publicador naquele mês. As horas dele ficam guardadas em campo separado e não entram nas totalizações.
+- **RN-043** Um auxiliar por tempo indeterminado abaixo da meta tem a petição **cancelada automaticamente**. A CS pode reativá-la.
+- **RN-044** Os meses especiais são marcados pelo secretário em uma agenda, à medida que forem anunciados.
+- **RN-050** O pioneiro regular tem meta anual de ⚙600h (referência de ⚙50h por mês).
+- **RN-051** O sistema alerta durante o ano mostrando a **média mensal necessária** = (600 − horas de campo acumuladas) ÷ meses restantes. O cálculo usa sempre 600h.
+- **RN-052** O crédito de horas só vale para atividade aprovada. Limite: horas de campo + crédito ≤ ⚙55h no mês. Não é transferível entre meses. O sistema guarda separadamente as **horas em atividade aprovada (total)** e o **crédito considerado**.
+- **RN-053** O crédito nunca entra no relatório da congregação (Betel). No S-21, Horas = só campo, e Observações = "Atividade aprovada: Xh; crédito considerado: Yh".
+- **RN-054** Apuração do fim do ano em três faixas:
+  - **continua**: campo ≥ ⚙600h, ou campo + crédito ≥ 600h com indicação explícita de que foi pelo crédito;
+  - **análise da CS**: entre ⚙560h e 600h, ou quando o crédito é necessário para chegar lá;
+  - **cancelamento sugerido**: abaixo de 560h.
+  Os limites exatos de cada faixa estão em QUESTÕES Q-04.
+- **RN-055** O pioneiro enfermo não tem exigência de horas e fica fora dos alertas.
+- **RN-056** Pioneiros especiais e missionários são habilitados pelo secretário. Os relatórios deles são consolidados em separado. O parâmetro ⚙`consolidar_especiais` tem padrão `false`.
+
+## Status do publicador
+- **RN-060** Considera somente meses **fechados** na congregação.
+- **RN-061** Inativo = ⚙6 meses consecutivos sem relatar.
+- **RN-062** Ativo-irregular = deixou de relatar pelo menos 1 dos últimos ⚙6 meses, sem chegar a ser inativo.
+- **RN-063** Ativo-regular = relatou todos os últimos 6 meses. Um publicador novo, com menos de 6 meses, é regular.
+- **RN-064** Um inativo que volta a relatar fica ativo de novo.
+- **RN-065** As situações cadastrais (mudou-se com transferência do S-21, removido, falecido) tiram o publicador das contagens a partir da data registrada.
+
+## Documentos
+- **RN-070** O S-21 é gerado preenchendo o PDF oficial (AcroForm `S-21_T.pdf`), 1 por publicador por ano de serviço.
+- **RN-071** O relatório da congregação é uma tela pronta para copiar, com: ativos; média de assistência do fim de semana; publicadores (relatórios e estudos); pioneiros auxiliares e regulares (relatórios, horas e estudos).
+
+## Transversais
+- **RN-080** Consentimento LGPD com versão do termo e data/hora, e possibilidade de revogação.
+- **RN-081** Retenção de dados ⚙parametrizável, com expurgo e anonimização agendados.
+- **RN-082** Auditoria de toda alteração: quem, quando, antes e depois, e motivo.
+- **RN-090** Parâmetros versionados por vigência e editáveis só pelo secretário.
+- **RN-091** Importação do AS 2026 (09/2025 a 08/2026) a partir do Google Forms (CSV) e do papel (planilha modelo).
