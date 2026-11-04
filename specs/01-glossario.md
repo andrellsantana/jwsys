@@ -12,7 +12,8 @@
 | **Comissão de Serviço (CS)** | Aprova petições de pioneiro auxiliar, reativa petições canceladas e analisa pioneiros regulares. |
 | **Envio** | Primeira transmissão do S-4 de um mês, dentro do prazo. É aceito automaticamente. |
 | **Reenvio** | Nova versão de um relatório já enviado. Exige aprovação do SG. |
-| **Envio retroativo** | Envio após o prazo (dia 6) ou de um mês passado. Exige aprovação do SG. |
+| **Envio em atraso** | Envio do dia 7 até o fim do mês seguinte ao da atividade. Exige aprovação do SG. |
+| **Envio retroativo** | Envio depois do fim do mês seguinte ao da atividade. Exige aprovação do SG. |
 | **Envio em nome de** | Relatório enviado por terceiro, com registro de quem enviou e da justificativa. |
 | **Conciliação** | O SG associa o nome digitado no relatório a um publicador do cadastro. |
 | **Fechamento do grupo** | Trava as edições do SG no mês. Prazo: dia 15. Fecha automaticamente no dia 16. |

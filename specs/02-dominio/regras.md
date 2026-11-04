@@ -10,12 +10,12 @@ Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
   - Trocou de aparelho: um novo QR é gerado, e o vínculo anterior é revogado.
 - **RN-002a** Um envio pelo link do grupo **sem ativação** é aceito como "não identificado" e precisa de conciliação pelo SG (RN-010). Isso serve para casos excepcionais.
 - **RN-003** O envio feito até o dia ⚙6 (inclusive) do mês seguinte, de um mês ainda sem relatório, é **aceito** automaticamente.
-- **RN-003a** **Bloqueio do dia ⚙7**, às 00:00:
-  - o envio normal do publicador é encerrado;
-  - do dia 7 ao dia 15, o SG analisa e aprova os relatórios recebidos;
-  - todo envio feito a partir do dia 7 é retroativo e segue o RN-004.
-  (Interpretação a confirmar em Q-10.)
-- **RN-004** Reenvio e envio retroativo (após o dia ⚙6 ou de qualquer mês passado) ficam **aguardando aprovação** do SG.
+- **RN-003a** **Bloqueio do dia ⚙7**, às 00:00: o envio normal do publicador é encerrado. Do dia 7 ao dia 15, o SG analisa e aprova os relatórios recebidos.
+- **RN-004** Classificação pela data de envio, para um mês de atividade M (o envio normal é no mês M+1):
+  - **No prazo:** até o dia ⚙6 de M+1. Aceito automaticamente (RN-003).
+  - **Em atraso:** do dia 7 ao último dia de M+1. Aguarda aprovação do SG.
+  - **Retroativo:** depois do fim do mês M+1, para qualquer mês passado. Aguarda aprovação do SG. Se o mês M já estiver fechado na congregação, vira tardio (RN-032).
+  - **Reenvio:** nova versão de um relatório já enviado, em qualquer momento. Aguarda aprovação do SG.
 - **RN-005** A recusa exige um motivo, que o publicador vê.
 - **RN-006** Todo envio registra a data e a hora da transmissão, o tipo (envio, reenvio ou retroativo), o aparelho e o autor.
 - **RN-007** O envio em nome de outro exige que o remetente se identifique e escreva uma justificativa.

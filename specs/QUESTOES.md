@@ -29,3 +29,4 @@
 - **Q-10 Bloqueio do dia 7:** a interpretação do RN-003a está correta? Ou, a partir do dia 7, **todos** os relatórios do mês (inclusive os enviados no prazo) passam a exigir aprovação explícita do SG?
 - **Q-11 S-21 de 2026:** os PDFs foram preenchidos **digitalmente** (com campos) ou são **digitalizações de papel**? Digitalização exige OCR e revisão manual.
 - **Q-12 Petição em papel:** anexar a digitalização da petição em papel? Isso usa o Cloud Storage em São Paulo, com custo de centavos.
+- **Q-13 Atraso após o fechamento do grupo:** um envio em atraso que chega entre os dias 16 e 31, com o grupo já fechado: o SG aprova sem precisar de liberação temporária? E se o mês já estiver fechado na congregação (depois do dia 20), entra como tardio no próximo relatório?
