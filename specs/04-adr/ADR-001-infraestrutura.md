@@ -24,7 +24,7 @@
 | Offline / fila de envio (RN-009) | Persistência offline do SDK do Firestore (IndexedDB) |
 | Banco | **Cloud Firestore** em modo nativo, `southamerica-east1` |
 | Segurança | **Firestore Security Rules**: isolamento por grupo, imutabilidade de envios e travas de fechamento. Testadas com o Emulator Suite. |
-| Backend | **Cloud Functions for Firebase (2ª geração, roda em Cloud Run)** em TypeScript: ativação por QR, aprovações, fechamentos, totais pré-calculados, PDF do S-21 (`pdf-lib`) |
+| Backend | **Cloud Functions for Firebase (2ª geração, roda em Cloud Run)** em TypeScript: ativação por QR, aprovações, fechamentos, totais pré-calculados, PDFs do S-21 e do S-205b preenchidos sem achatar (`pdf-lib`), importação de S-21 |
 | Jobs | Uma única função agendada diária (Cloud Scheduler, 1 de 3 tarefas grátis) que despacha: fechamento do dia 16, fim de liberações temporárias, recálculo de status e expurgo |
 | Auth do publicador | O QR de uso único (RN-002) chama uma função que emite um *custom token*. O aparelho fica logado de forma persistente, sem senha. |
 | Auth da equipe (SG, secretário, CS) | Login Google ou link por e-mail. **MFA TOTP** para o secretário (Identity Platform, dentro da cota grátis). |
@@ -39,8 +39,8 @@
 - A modelagem detalhada vai no ADR-002.
 
 ## FinOps — proteções obrigatórias
-1. **Alertas de orçamento** em R$ 1, R$ 5 e R$ 10.
-2. **Desligamento automático da cobrança** em R$ 20, com a função oficial `stopBilling` assinando o Pub/Sub do orçamento.
+1. **Alertas de orçamento** em R$ 1, R$ 5, R$ 10 e R$ 20.
+2. **Desligamento automático da cobrança** em R$ 30 (decisão do usuário), com a função oficial `stopBilling` assinando o Pub/Sub do orçamento.
 3. Funções e Cloud Run com `maxInstances` = 2 e `minInstances` = 0.
 4. Política de limpeza no Artifact Registry: manter as 2 últimas imagens.
 5. App Check ativado para Firestore e Functions.

@@ -10,6 +10,11 @@ Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
   - Trocou de aparelho: um novo QR é gerado, e o vínculo anterior é revogado.
 - **RN-002a** Um envio pelo link do grupo **sem ativação** é aceito como "não identificado" e precisa de conciliação pelo SG (RN-010). Isso serve para casos excepcionais.
 - **RN-003** O envio feito até o dia ⚙6 (inclusive) do mês seguinte, de um mês ainda sem relatório, é **aceito** automaticamente.
+- **RN-003a** **Bloqueio do dia ⚙7**, às 00:00:
+  - o envio normal do publicador é encerrado;
+  - do dia 7 ao dia 15, o SG analisa e aprova os relatórios recebidos;
+  - todo envio feito a partir do dia 7 é retroativo e segue o RN-004.
+  (Interpretação a confirmar em Q-10.)
 - **RN-004** Reenvio e envio retroativo (após o dia ⚙6 ou de qualquer mês passado) ficam **aguardando aprovação** do SG.
 - **RN-005** A recusa exige um motivo, que o publicador vê.
 - **RN-006** Todo envio registra a data e a hora da transmissão, o tipo (envio, reenvio ou retroativo), o aparelho e o autor.
@@ -31,7 +36,7 @@ Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
 - **RN-032** Relatório tardio é o retroativo de um mês já fechado na congregação, aprovado pelo SG.
   - Ele vai para a fila do secretário.
   - Se o secretário aceitar: registra a data do aceite, vale para o S-21 e para o status (regular/irregular) do mês original, e entra no **próximo** relatório da congregação.
-  - O relatório da congregação de um mês já fechado **nunca é alterado**.
+  - Depois que o mês de envio se encerrou, o relatório da congregação daquele mês fechado **nunca é alterado**.
 - **RN-033** O secretário move publicadores de grupo (com histórico por data de vigência) e define o SG e os ajudantes.
 - **RN-034** Só o secretário lança a assistência (S-3), reunião por reunião. A média mensal é calculada, sem separar presencial de online.
 
@@ -49,6 +54,8 @@ Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
 - **RN-042** Um auxiliar abaixo da meta conta como publicador naquele mês. As horas dele ficam guardadas em campo separado e não entram nas totalizações.
 - **RN-043** Um auxiliar por tempo indeterminado abaixo da meta tem a petição **cancelada automaticamente**. A CS pode reativá-la.
 - **RN-044** Os meses especiais são marcados pelo secretário em uma agenda, à medida que forem anunciados.
+- **RN-045** **Designação de pioneiro auxiliar:** o publicador é pioneiro auxiliar no mês M se, e somente se, existir uma petição **aprovada pela CS** que cubra M, seja pelos meses listados no S-205b ou por "continuamente" a partir do mês inicial, enquanto não for cancelada. Esse vínculo é o que libera o campo Horas no S-4 e o que define a categoria nas totalizações.
+- **RN-046** O secretário pode lançar manualmente uma petição em papel já assinada e aprovada. Ele marca "petição física arquivada" e informa a data e os membros da CS que aprovaram. O sistema registra o lançamento na auditoria.
 - **RN-050** O pioneiro regular tem meta anual de ⚙600h (referência de ⚙50h por mês).
 - **RN-051** O sistema alerta durante o ano mostrando a **média mensal necessária** = (600 − horas de campo acumuladas) ÷ meses restantes. O cálculo usa sempre 600h.
 - **RN-052** O crédito de horas só vale para atividade aprovada. Limite: horas de campo + crédito ≤ ⚙55h no mês. Não é transferível entre meses. O sistema guarda separadamente as **horas em atividade aprovada (total)** e o **crédito considerado**.
@@ -71,7 +78,7 @@ Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
 - **RN-065** As situações cadastrais (mudou-se com transferência do S-21, removido, falecido) tiram o publicador das contagens a partir da data registrada.
 
 ## Documentos
-- **RN-070** O S-21 é gerado preenchendo o PDF oficial (AcroForm `S-21_T.pdf`), 1 por publicador por ano de serviço.
+- **RN-070** O S-21 é gerado preenchendo o PDF oficial (`S-21_T.pdf`), com layout **idêntico**, 1 por publicador por ano de serviço. O PDF **continua editável**: os campos AcroForm são mantidos, sem achatar o formulário.
 - **RN-071** O relatório da congregação é uma tela pronta para copiar, com: ativos; média de assistência do fim de semana; publicadores (relatórios e estudos); pioneiros auxiliares e regulares (relatórios, horas e estudos).
 
 ## Transversais
@@ -79,4 +86,8 @@ Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
 - **RN-081** Retenção de dados ⚙parametrizável, com expurgo e anonimização agendados.
 - **RN-082** Auditoria de toda alteração: quem, quando, antes e depois, e motivo.
 - **RN-090** Parâmetros versionados por vigência e editáveis só pelo secretário.
-- **RN-091** Importação do AS 2026 (09/2025 a 08/2026) a partir do Google Forms (CSV) e do papel (planilha modelo).
+- **RN-091** **Importação do AS 2026 a partir dos S-21 em PDF:**
+  - Lê todos os PDFs de uma pasta e extrai os campos AcroForm: cabeçalho e os 12 meses (participou, estudos, auxiliar, horas, observações).
+  - Mostra uma prévia com a conciliação de cada cartão com o cadastro e a lista de divergências antes de gravar.
+  - Os registros importados passam a fazer parte do sistema, como meses **fechados** com origem "importado S-21". Eles valem para status, apuração e painéis.
+- **RN-092** Os **formulários online do S-4 e do S-205b reproduzem os modelos do repositório**: mesmos títulos, rótulos, textos, ordem e disposição dos campos. Os campos extras do sistema (Crédito de horas, Grupo, envio em nome de) ficam visualmente separados do formulário oficial.

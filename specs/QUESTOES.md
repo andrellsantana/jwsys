@@ -24,3 +24,8 @@
 - Q-06: a reabertura da congregação vale só para o secretário; os grupos usam a liberação temporária (RN-031).
 - Q-07: domínio próprio só na produção; até lá, *.web.app.
 - Q-08: S-205b analisado (RN-040).
+
+## Rodada 3
+- **Q-10 Bloqueio do dia 7:** a interpretação do RN-003a está correta? Ou, a partir do dia 7, **todos** os relatórios do mês (inclusive os enviados no prazo) passam a exigir aprovação explícita do SG?
+- **Q-11 S-21 de 2026:** os PDFs foram preenchidos **digitalmente** (com campos) ou são **digitalizações de papel**? Digitalização exige OCR e revisão manual.
+- **Q-12 Petição em papel:** anexar a digitalização da petição em papel? Isso usa o Cloud Storage em São Paulo, com custo de centavos.
