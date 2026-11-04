@@ -62,7 +62,7 @@ auditoria/{id}                       { quem, papelUsado, quando, acao, alvo, ant
 ## Gatilhos e jobs
 | Evento | Ação |
 |---|---|
-| `envios` onCreate | Classifica o `tipo` pelo `recebidoEm` (ver Q-15); prazo + aparelho ativado → aceito; senão → aguardando; atualiza o `relatorios` vigente e os `totais`. |
+| `envios` onCreate | Classifica o `tipo` pelo `recebidoEm`, com tolerância offline (RN-009a); prazo + aparelho ativado → aceito; senão → aguardando; atualiza o `relatorios` vigente e os `totais`. |
 | Callable `decidirEnvio` (SG) | Aceita ou recusa com motivo. Se o grupo já fechou → `pendenteProcessamento` (RN-024). |
 | Callable `conciliar` (SG) | Liga um `enviosNaoIdentificados` a um `pubId` (e opcionalmente o aparelho). |
 | Job diário (00:05 BRT) | Dia 7: bloqueio. Dia 16: fecha os grupos. Fim das liberações temporárias. Fim de mês: torna imutável o relatório da congregação de M−1. Recálculo de status (RN-060–065). Cancelamento de auxiliar contínuo (RN-043). Processa a fila de tardios. Expurgo, **só se `expurgo_habilitado` = true** (padrão false, RN-081). |
@@ -79,5 +79,5 @@ auditoria/{id}                       { quem, papelUsado, quando, acao, alvo, ant
 
 ## Riscos e mitigações
 - **Visibilidade por grupo, não por pessoa (RN-036):** `relatorios.grupoId` é gravado com o grupo **do mês**. A regra é `resource.data.grupoId == token.sgDe`: o SG atual vê **todo o histórico do grupo** que supervisiona hoje, inclusive de quem já saiu dele, e perde o acesso ao grupo anterior no mesmo instante em que é trocado (os claims são revogados e reemitidos).
-- **Relógio do aparelho:** a classificação usa o `recebidoEm` do servidor. O `criadoNoAparelhoEm` fica só como informação (Q-15).
+- **Relógio do aparelho:** a classificação usa o `recebidoEm` do servidor. O `criadoNoAparelhoEm` só ativa a tolerância de 24h com a decisão do SG (RN-009a).
 - **Custos:** índices compostos só onde houver consulta real. Nenhuma consulta de coleção inteira nos painéis.

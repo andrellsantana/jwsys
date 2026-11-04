@@ -21,6 +21,9 @@ Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
 - **RN-007** O envio em nome de outro exige que o remetente se identifique e escreva uma justificativa.
 - **RN-008** O publicador vê no celular a lista dos próprios envios e o status de cada um: aceito, aguardando ou recusado.
 - **RN-009** O rascunho fica salvo no aparelho. Sem conexão, o envio entra em uma fila que é transmitida quando a conexão voltar.
+- **RN-009a** **Hora que vale para o envio:** a classificação usa a hora do **servidor** (`recebidoEm`).
+  - Se o aparelho registrou o envio (`criadoNoAparelhoEm`) dentro do prazo e o servidor recebeu até ⚙24h depois do fim do prazo, o envio fica **aguardando** com a marca "enviado offline no prazo". O SG decide se o considera no prazo.
+  - Fora dessa tolerância, vale a classificação pela hora do servidor.
 - **RN-010** O SG concilia o nome do relatório com o publicador cadastrado. A conciliação vincula o aparelho ao publicador para os envios futuros.
 - **RN-011** O campo Horas só aparece para pioneiro auxiliar, regular ou especial. O Crédito de horas só aparece para pioneiro regular.
 
