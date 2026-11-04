@@ -27,13 +27,24 @@ Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
 
 ## Secretário e congregação
 - **RN-030** O fechamento da congregação acontece até o dia ⚙20 e trava o mês para todos.
-- **RN-031** O secretário pode reabrir um mês fechado, sempre com motivo e registro na auditoria.
-- **RN-032** Um retroativo aprovado pelo SG de um mês já fechado na congregação vai para a fila de **relatórios tardios**. Se o secretário aceitar, ele entra no relatório da congregação do próximo mês aberto e também no S-21 do mês original.
+- **RN-031** O secretário pode reabrir o mês da congregação **somente para si**, com motivo e registro na auditoria. Isso **não** reabre os grupos. Para reabrir um grupo específico, vale a liberação temporária do RN-023.
+- **RN-032** Relatório tardio é o retroativo de um mês já fechado na congregação, aprovado pelo SG.
+  - Ele vai para a fila do secretário.
+  - Se o secretário aceitar: registra a data do aceite, vale para o S-21 e para o status (regular/irregular) do mês original, e entra no **próximo** relatório da congregação.
+  - O relatório da congregação de um mês já fechado **nunca é alterado**.
 - **RN-033** O secretário move publicadores de grupo (com histórico por data de vigência) e define o SG e os ajudantes.
 - **RN-034** Só o secretário lança a assistência (S-3), reunião por reunião. A média mensal é calculada, sem separar presencial de online.
 
 ## Pioneiros
-- **RN-040** A petição de pioneiro auxiliar (S-205) pode ser para 1 mês, vários meses ou tempo indeterminado. Só a CS aprova.
+- **RN-040** A petição de pioneiro auxiliar segue o **S-205b**:
+  - meses solicitados, ou o quadrículo "continuamente até segundo aviso";
+  - data;
+  - nome em letra de forma;
+  - assinatura, substituída pelo aceite eletrônico do publicador no app;
+  - os 3 critérios avaliados pela CS (bom exemplo/reputação; não repreendido nem readmitido nos últimos 12 meses e sem restrições; SG consultado);
+  - a aprovação, que só a CS dá, com a rubrica de cada membro substituída pelo registro de aprovação de cada membro com data.
+
+  O sistema gera o PDF preenchido para guardar nos arquivos da congregação.
 - **RN-041** A meta do auxiliar é ⚙15h em mês especial e ⚙30h nos demais meses.
 - **RN-042** Um auxiliar abaixo da meta conta como publicador naquele mês. As horas dele ficam guardadas em campo separado e não entram nas totalizações.
 - **RN-043** Um auxiliar por tempo indeterminado abaixo da meta tem a petição **cancelada automaticamente**. A CS pode reativá-la.

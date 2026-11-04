@@ -9,14 +9,18 @@
   - campo < 560, mas campo + crédito ≥ 560 → análise da CS;
   - campo + crédito < 560 → cancelamento sugerido.
   É isso? E como fica quem começou a ser pioneiro no meio do ano (meta proporcional)?
-- **Q-05 Mês do relatório tardio:** o tardio aceito também conta para o status (regular/irregular) do mês original? A sugestão é que sim.
-- **Q-06 Reabertura pelo secretário:** reabrir o mês da congregação reabre também os grupos?
-- **Q-07 Domínio:** usar um domínio próprio ou um subdomínio grátis (`*.pages.dev`)?
-- **Q-08 S-205:** quando o modelo for enviado, revisar os campos da petição.
+- ✅ **Q-05 Mês do relatório tardio:** o tardio aceito também conta para o status (regular/irregular) do mês original? A sugestão é que sim.
+- ✅ **Q-06 Reabertura pelo secretário:** reabrir o mês da congregação reabre também os grupos?
+- ✅ **Q-07 Domínio:** usar um domínio próprio ou um subdomínio grátis (`*.pages.dev`)?
+- ✅ **Q-08 S-205:** quando o modelo for enviado, revisar os campos da petição.
 - **Q-09 Formato da importação do AS 2026:** enviar um exemplo (anonimizado) do CSV do Google Forms.
 
 ## Decisões
 - Q-01: o ajudante não tem nenhum poder; é só um registro.
 - Q-02 e Q-03: ativação por QR individual (RN-002); troca de aparelho = novo QR.
 - Q-04: faixas confirmadas; meta proporcional (RN-054 e RN-057).
-- Infraestrutura: Supabase × GCP/Firebase ainda em decisão (ADR-001).
+- Infraestrutura: GCP + Firebase (ADR-001 aceito).
+- Q-05: o tardio aceito conta para o mês original (status e S-21), com data registrada, e entra no próximo relatório da congregação. O mês já fechado não muda (RN-032).
+- Q-06: a reabertura da congregação vale só para o secretário; os grupos usam a liberação temporária (RN-031).
+- Q-07: domínio próprio só na produção; até lá, *.web.app.
+- Q-08: S-205b analisado (RN-040).
