@@ -43,6 +43,7 @@
 - Q-16: o SG aprova os próprios envios (ATV-018). Q-17: não vê os relatórios de outro grupo, só o histórico de status (CAD-002).
 
 ## Rodada 5 (UX do secretário)
-- **Q-18 Fechar a congregação com grupo aberto:** o secretário pode fechar a congregação no dia 20 se algum grupo ainda não estiver fechado? Pela regra, o fechamento automático do dia 16 deveria ter fechado todos, mas um grupo pode estar sob liberação temporária.
-- **Q-19 CS no sistema:** a CS aprova as petições na própria tela (cada membro registra a aprovação) ou o secretário registra a aprovação em nome dela?
-- **Q-20 S-21 em lote:** gerar todos os S-21 do ano de serviço num ZIP é útil? Para quando (fim do AS, transferência, sob demanda)?
+- ✅ **Q-18 Fechar a congregação com grupo aberto:** o secretário pode fechar a congregação no dia 20 se algum grupo ainda não estiver fechado? Pela regra, o fechamento automático do dia 16 deveria ter fechado todos, mas um grupo pode estar sob liberação temporária.
+- ✅ **Q-19 CS no sistema:** a CS aprova as petições na própria tela (cada membro registra a aprovação) ou o secretário registra a aprovação em nome dela?
+- ✅ **Q-20 S-21 em lote:** gerar todos os S-21 do ano de serviço num ZIP é útil? Para quando (fim do AS, transferência, sob demanda)?
+- Rodada 5: Q-18 → ATV-019a; Q-19 → ATV-022a, ATV-027a, CAD-005; Q-20 → ATV-041a. Linguagem: TypeScript (ADR-001). Protótipos: 100% responsivos.

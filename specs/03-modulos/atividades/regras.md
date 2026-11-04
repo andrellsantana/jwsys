@@ -32,6 +32,7 @@ Os valores marcados com `⚙` vêm de Parâmetros (PAR-001). O ID antigo aparece
 - **ATV-017** _(RN-024)_ **Aprovação após o fechamento do grupo:** o SG pode aprovar envios em atraso, retroativos e reenvios recebidos depois que o grupo fechou, sem precisar de liberação temporária. O relatório aprovado fica **na fila de processamento** e só é processado no ciclo do próximo mês. Ele entra no próximo relatório da congregação e no S-21 e status do mês original, com a data registrada. O secretário vê essa fila (ATV-021).
 - **ATV-018** _(RN-037)_ **Autoaprovação:** o SG aprova os próprios envios em atraso, retroativos e reenvios, inclusive quando é também o secretário. A decisão é marcada como "autoaprovação" na auditoria.
 - **ATV-019** _(RN-030)_ O fechamento da congregação acontece até o dia ⚙20 e trava o mês para todos.
+- **ATV-019a** Fechar o relatório da congregação **fecha também todos os grupos** daquele mês, inclusive os que estão com liberação temporária, que é encerrada nesse momento.
 - **ATV-020** _(RN-031)_ O S-21 e o relatório da congregação são **registros distintos**:
   - O S-21 sempre mostra a atividade no mês em que ela aconteceu.
   - O relatório da congregação de um mês pode ser fechado e reaberto pelo secretário **somente até o fim do mês de envio** (M+1), com motivo e registro na auditoria. A reabertura vale só para o secretário e não reabre os grupos (para isso, ATV-016).
@@ -43,6 +44,7 @@ Os valores marcados com `⚙` vêm de Parâmetros (PAR-001). O ID antigo aparece
   - Um **retroativo nunca entra num relatório da congregação já fechado**. Ele entra nos totais do **próximo relatório da congregação a ser fechado**, ou seja, o primeiro ainda aberto. Exemplo: o relatório de agosto que chega em dezembro entra no relatório da congregação de novembro.
   - Depois que o mês de envio se encerrou, o relatório da congregação daquele mês fechado **nunca é alterado**.
 - **ATV-022** _(RN-040)_ A petição de pioneiro auxiliar segue o **S-205b**:
+- **ATV-022a** **Aprovação pela CS:** os 3 membros (coordenador do corpo de anciãos, secretário e superintendente de serviço) aprovam **cada um em separado** no sistema. A petição só é aprovada com as 3 aprovações, e uma recusa de qualquer membro a recusa.
   - meses solicitados, ou o quadrículo "continuamente até segundo aviso";
   - data;
   - nome em letra de forma;
@@ -55,6 +57,10 @@ Os valores marcados com `⚙` vêm de Parâmetros (PAR-001). O ID antigo aparece
 - **ATV-025** _(RN-043)_ Um auxiliar por tempo indeterminado abaixo da meta tem a petição **cancelada automaticamente**. A CS pode reativá-la.
 - **ATV-026** _(RN-045)_ **Designação de pioneiro auxiliar:** o publicador é pioneiro auxiliar no mês M se, e somente se, existir uma petição **aprovada pela CS** que cubra M, seja pelos meses listados no S-205b ou por "continuamente" a partir do mês inicial, enquanto não for cancelada. Esse vínculo é o que libera o campo Horas no S-4 e o que define a categoria nas totalizações.
 - **ATV-027** _(RN-046)_ O secretário pode lançar manualmente uma petição em papel já assinada e aprovada. Ele marca "petição física arquivada" e informa a data e os membros da CS que aprovaram. O sistema registra o lançamento na auditoria. É obrigatório anexar a **digitalização da petição assinada** (PDF ou imagem, até ⚙5 MB), guardada no Cloud Storage em `southamerica-east1`, com acesso restrito ao secretário e à CS.
+- **ATV-027a** **Verificação automática da petição digitalizada:** ao importar a digitalização do S-205b, o sistema localiza as áreas de assinatura do peticionário e das 3 rubricas da CS (coordenadas do modelo) e detecta se há traço em cada uma.
+  - Todas presentes, com confiança ≥ ⚙ → as 3 aprovações são registradas **automaticamente**, com origem "papel verificado".
+  - Alguma ausente ou com baixa confiança → vai para a confirmação manual do secretário, com a imagem e as áreas destacadas.
+  - Limite: o sistema verifica a **presença** das assinaturas, não a autenticidade. O processamento é local (Cloud Functions em São Paulo), sem serviços externos.
 - **ATV-028** _(RN-050)_ O pioneiro regular tem meta anual de ⚙600h (referência de ⚙50h por mês).
 - **ATV-029** _(RN-051)_ O sistema alerta durante o ano mostrando a **média mensal necessária** = (600 − horas de campo acumuladas) ÷ meses restantes. O cálculo usa sempre 600h.
 - **ATV-030** _(RN-052)_ O crédito de horas só vale para atividade aprovada. Limite: horas de campo + crédito ≤ ⚙55h no mês. Não é transferível entre meses. O sistema guarda separadamente as **horas em atividade aprovada (total)** e o **crédito considerado**.
@@ -73,6 +79,7 @@ Os valores marcados com `⚙` vêm de Parâmetros (PAR-001). O ID antigo aparece
 - **ATV-039** _(RN-063)_ Ativo-regular = relatou todos os últimos 6 meses. Um publicador novo, com menos de 6 meses, é regular.
 - **ATV-040** _(RN-064)_ Um inativo que volta a relatar fica ativo de novo.
 - **ATV-041** _(RN-070)_ O S-21 é gerado preenchendo o PDF oficial (`S-21_T.pdf`), com layout **idêntico**, 1 por publicador por ano de serviço. O PDF **continua editável**: os campos AcroForm são mantidos, sem achatar o formulário.
+- **ATV-041a** **S-21 em lote:** gera um ZIP com os S-21 editáveis de todos os publicadores (ou de uma seleção) de um ano de serviço, para backup no fim do ano ou para envio ao superintendente de circuito. A geração é registrada na auditoria.
 - **ATV-042** _(RN-071)_ O relatório da congregação é uma tela pronta para copiar, com: ativos; média de assistência do fim de semana; publicadores (relatórios e estudos); pioneiros auxiliares e regulares (relatórios, horas e estudos).
 - **ATV-043** _(RN-091)_ **Importação do AS 2026 a partir dos S-21 em PDF:**
   - Os cartões de origem são PDFs editáveis, preenchidos digitalmente (Q-11), então **não precisa de OCR**.

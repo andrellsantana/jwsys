@@ -6,7 +6,8 @@ Decisões de 04/11/2026. Acesso restrito aos membros da CS (CAD).
 - Fila de petições pendentes: publicador, meses ou "continuamente", data, SG consultado.
 - A petição é exibida como o S-205b original (ATV-013).
 - Os 3 critérios da comissão aparecem como confirmação explícita.
-- Aprovação conforme Q-19. Recusa com motivo.
+- Cada membro (coordenador, secretário, superintendente de serviço) aprova **em separado**, e a tela mostra o progresso ("2 de 3 aprovações"). Recusa com motivo (ATV-022a).
+- Petições em papel verificadas automaticamente aparecem com a marca "papel verificado" e a imagem (ATV-027a).
 - Petições canceladas automaticamente (ATV-025) aparecem com o botão "Reativar".
 
 ## UX-CS-002 Apuração dos pioneiros regulares
