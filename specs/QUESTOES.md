@@ -60,3 +60,4 @@
 - Q-25: desconecta só ao perder poder; ganhar poder ou trocar o papel na tela não desconecta (ADR-003 §8).
 - ✅ **Q-26 Revogação do consentimento:** ver specs/03-modulos/nucleo/spec.md (H-NUC-08).
 - Q-26: opção (a) (H-NUC-08 CA-2).
+- **Q-27 a Q-30:** ver specs/03-modulos/cadastro/spec.md.

@@ -28,7 +28,7 @@ Guardar, num só lugar, todos os valores que as regras usam (prazos, metas, limi
 | NUC | `expurgo_habilitado` | não | Expurgo (NUC-005) |
 | NUC | `retencao_<tipo>` | sem limite | Retenção por tipo de dado (NUC-005) |
 
-Os valores de QR (72 h) e de confiança da assinatura (0,80) são sugestões minhas e podem ser ajustados.
+Valores de QR (72 h) e de confiança da assinatura (0,80) confirmados pelo usuário em 04/11/2026.
 
 ---
 
