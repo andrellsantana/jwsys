@@ -44,6 +44,7 @@ Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
   - Um **retroativo nunca entra num relatório da congregação já fechado**. Ele entra nos totais do **próximo relatório da congregação a ser fechado**, ou seja, o primeiro ainda aberto. Exemplo: o relatório de agosto que chega em dezembro entra no relatório da congregação de novembro.
   - Depois que o mês de envio se encerrou, o relatório da congregação daquele mês fechado **nunca é alterado**.
 - **RN-033** O secretário move publicadores de grupo (com histórico por data de vigência) e define o SG e os ajudantes.
+- **RN-035** **Papéis acumuláveis:** uma pessoa é sempre publicador e pode acumular os papéis de SG de um grupo (inclusive um grupo diferente do seu), secretário e membro da CS. Exemplo: o secretário também é SG do Grupo 2. Cada ação registra na auditoria **com qual papel** foi feita. As telas oferecem a troca de papel (Publicador / SG do Grupo X / Secretaria / CS).
 - **RN-034** Só o secretário lança a assistência (S-3), reunião por reunião. A média mensal é calculada, sem separar presencial de online.
 
 ## Pioneiros
@@ -89,7 +90,7 @@ Os valores marcados com `⚙` vêm da tabela de **Parâmetros** (RN-090).
 
 ## Transversais
 - **RN-080** Consentimento LGPD com versão do termo e data/hora, e possibilidade de revogação.
-- **RN-081** Retenção de dados ⚙parametrizável, com expurgo e anonimização agendados.
+- **RN-081** **Expurgo:** prazos de retenção ⚙ por tipo de dado, com o parâmetro ⚙`expurgo_habilitado` = **false** por padrão. Nada é expurgado ou anonimizado até o secretário habilitar explicitamente (ação auditada). Ao habilitar, o sistema mostra uma prévia do que seria afetado.
 - **RN-082** Auditoria de toda alteração: quem, quando, antes e depois, e motivo.
 - **RN-090** Parâmetros versionados por vigência e editáveis só pelo secretário.
 - **RN-091** **Importação do AS 2026 a partir dos S-21 em PDF:**

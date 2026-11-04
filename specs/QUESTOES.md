@@ -37,3 +37,4 @@
 
 ## Rodada 4 (ADR-002)
 - **Q-15 Envio offline:** o publicador toca em "Enviar" no dia 6, sem internet, e o celular só sincroniza no dia 8. O envio vale pela hora do **servidor** (fica em atraso) ou pela do **aparelho** (fica no prazo)? A hora do aparelho pode ser alterada pelo usuário. Sugestão: servidor, com uma tolerância ⚙ de até 24h quando o aparelho registrou o envio antes do prazo, e a decisão final do SG.
+- **Q-16 Conflito de interesse:** o SG é publicador do próprio grupo. Quem aprova o relatório **em atraso, retroativo ou reenvio do próprio SG**: ele mesmo, o secretário ou outro ancião? E quando o secretário é o SG?
