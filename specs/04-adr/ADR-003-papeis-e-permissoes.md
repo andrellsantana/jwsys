@@ -10,6 +10,12 @@
 
 ## Decisão
 
+### 0. Usuário, perfis, papéis e responsabilidades
+- **Usuário:** um único login por pessoa. Todos os poderes vêm do que foi concedido a esse usuário.
+- **Perfil** (= designação na congregação, com vigência): `PUB` publicador, `SG` superintendente de grupo, `SEC` secretário, `SS` superintendente de serviço, `CCA` coordenador do corpo de anciãos, `CCP` coordenador de conferências públicas, `CL` coordenador de limpeza. Futuros: servo de contas, servo de territórios etc. A **CS** é derivada: CCA + SEC + SS.
+- **Papel:** conjunto de permissões de um módulo, gerado pelos perfis ou concedido manualmente (seção 6).
+- **Responsabilidade** (= permissão): a funcionalidade específica que o usuário pode acessar (`atv.relatorio.aprovar`, `reu.assistencia.lancar`…).
+
 ### 1. Três conceitos separados
 | Conceito | O que é | Exemplo |
 |---|---|---|
@@ -53,7 +59,7 @@ nuc_papeis/{papel}      catálogo gerado dos manifestos (somente leitura)
 ```
 
 ### 4. Claims compactos no token
-`{ p: "<pubId>", g: "<grupoPub>", r: ["atv.sg@g2", "atv.sec", "atv.cs"], mfa: ["atv.sec"] }`
+`{ p: "<pubId>", g: "<grupoPub>", v: <versão>, r: ["atv.sg@g2", "atv.sec", "atv.cs"], mfa: ["atv.sec"] }`
 - Só os **papéis vigentes**, não as permissões. Cada papel fica com menos de 15 bytes, e o total cabe folgado no limite.
 - As Security Rules geradas traduzem papel → permissão em tempo de compilação, sem leituras extras.
 - **Mudança de designação ou atribuição** → a função recalcula os claims e chama `revokeRefreshTokens`. O acesso antigo cai em minutos (o SG que muda de grupo perde o anterior, CAD-002).
@@ -65,6 +71,25 @@ nuc_papeis/{papel}      catálogo gerado dos manifestos (somente leitura)
 - **Separação de funções (opcional por módulo):** o manifesto pode exigir que duas pessoas diferentes participem (ex.: contas, conferência por 2). A autoaprovação do SG é permitida explicitamente (ATV-018).
 - **Dados sensíveis por módulo:** PAS e CTA ficam em coleções próprias, sem `permissoes: ['*']` herdadas. Nem o secretário as vê sem o papel específico.
 - **Negação por padrão:** sem papel = sem acesso. O publicador sem aparelho ativado só cria `atv_enviosNaoIdentificados` (NUC-002).
+
+### 6. Concessão manual de papéis (Q-22)
+- Pode ser feita pelo **administrador do sistema**, pelo **CCA** e pelo **SEC** (permissão `nuc.papel.conceder`).
+- Exige motivo e aceita uma **data de validade** opcional. Ao vencer, o papel é removido pelo job diário.
+- Exemplo: um ancião recebe `reu.assistencia.lancar` por 3 meses.
+
+### 7. Administrador do sistema (acesso master)
+- É uma **conta técnica separada**, distinta do login pessoal do mesmo indivíduo. Como membro da congregação, a pessoa entra com o login normal e só os poderes concedidos.
+- Pode: parâmetros, papéis e concessões, catálogo de módulos, backups e restauração, auditoria completa, reabertura de emergência.
+- Exige: **MFA obrigatório** (chave de segurança ou TOTP), sessão curta (⚙ 30 min sem uso), aviso visual permanente "Modo administrador", e **toda ação auditada** com destaque.
+- O acesso do master aos dados sensíveis dos módulos futuros (PAS, CTA) está em aberto (Q-24).
+
+### 8. Desconexão em tempo real ao mudar papéis
+Quando os perfis ou papéis de um usuário mudam (concessão, revogação, troca de grupo, fim de vigência):
+1. A função grava `nuc_sessoes/{uid}.versao++`, recalcula os claims e chama `revokeRefreshTokens(uid)`.
+2. O app escuta `nuc_sessoes/{uid}` em tempo real (`onSnapshot`). Ao detectar a mudança, faz **logout imediato**, com a mensagem "Suas permissões mudaram. Entre novamente."
+3. **No servidor**, as rules exigem `request.auth.token.v == get(nuc_sessoes/uid).data.versao` e as Functions verificam o token com `checkRevoked: true`. Um token antigo é recusado na hora, mesmo que o app não esteja aberto.
+4. **FinOps:** o `get()` adiciona 1 leitura por operação. No volume da congregação, isso continua bem abaixo da cota grátis.
+- O publicador ativado por QR também é desconectado se o aparelho for revogado.
 
 ## Consequências
 - O ADR-002 passa a usar `r[]` no lugar de `sgDe/secretario/cs`. O Cadastro ganha a coleção `cad_designacoes` e a tela "Designações" (substitui CAD-005 como mecanismo; a regra continua).

@@ -8,3 +8,4 @@ Decisões de 04/11/2026.
 - **Responsivo:** a tela do publicador é pensada primeiro para o celular. **Todas as telas são 100% responsivas** (celular, tablet e computador), inclusive as do secretário.
 - **Idioma e formatos:** pt-BR, datas dd/mm/aaaa, fuso America/Sao_Paulo.
 - **Opções de aparência** (fonte grande, alto contraste, modo escuro): desativadas por padrão, valem para todos os perfis (UX-PUB-003).
+- **Paletas (Q-21):** cada pessoa escolhe a sua em Ajuda › Aparência: Azul sereno (padrão), Verde sálvia, Lavanda, Areia, Grafite. A escolha fica no perfil do usuário e vale em todos os aparelhos dele. As cores de situação são as mesmas em todas as paletas, e o alto contraste tem prioridade.

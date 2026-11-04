@@ -49,6 +49,9 @@
 - Rodada 5: Q-18 → ATV-019a; Q-19 → ATV-022a, ATV-027a, CAD-005; Q-20 → ATV-041a. Linguagem: TypeScript (ADR-001). Protótipos: 100% responsivos.
 
 ## Rodada 6 (ADR-003 e UX)
-- **Q-21 Paleta:** fixar uma paleta como identidade do sistema ou deixar cada pessoa escolher a sua em Ajuda › Aparência?
-- **Q-22 Atribuição manual:** além das designações (coordenador, secretário, SS, SG), o secretário pode dar um papel a alguém sem designação formal (ex.: um ancião para ajudar a lançar o S-3)? Com prazo de validade?
+- ✅ **Q-21 Paleta:** fixar uma paleta como identidade do sistema ou deixar cada pessoa escolher a sua em Ajuda › Aparência?
+- ✅ **Q-22 Atribuição manual:** além das designações (coordenador, secretário, SS, SG), o secretário pode dar um papel a alguém sem designação formal (ex.: um ancião para ajudar a lançar o S-3)? Com prazo de validade?
 - **Q-23 Anciãos e servos no sistema:** os anciãos que não são da CS nem SG precisam de algum acesso no MVP (ex.: consulta)?
+- Q-21: cada pessoa escolhe a sua paleta (UX). Q-22: concessão manual pelo administrador, pelo CCA e pelo SEC, com validade opcional (ADR-003 §6).
+- **Q-24 Master e dados sensíveis:** a conta de administrador do sistema deve ter acesso aos dados de Pastoreio e Contas, ou só à parte técnica (parâmetros, papéis, backups), sem ver o conteúdo sensível?
+- **Q-25 "Ao mudar de papel":** a desconexão em tempo real vale quando os poderes do usuário **são alterados** (ADR-003 §8), ou também quando ele mesmo **troca o papel ativo** na tela (ex.: de Publicador para SG)? A troca na tela não precisaria desconectar.
