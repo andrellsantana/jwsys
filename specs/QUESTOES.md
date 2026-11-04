@@ -34,3 +34,6 @@
 - ✅ **Q-14 Retroativo nos totais:** na 1ª rodada você disse que o retroativo aceito "deverá constar no próximo relatório da congregação". Agora ficou "somente no S-21". Ele entra nos totais do próximo relatório da congregação aberto, ou fica **apenas** no S-21?
 - Q-11: os S-21 de 2026 são PDFs editáveis preenchidos digitalmente. A extração é direta pelos campos, sem OCR (RN-091).
 - Q-14: o retroativo vai para o S-21 do mês original e entra nos totais do próximo relatório da congregação ainda aberto (RN-032).
+
+## Rodada 4 (ADR-002)
+- **Q-15 Envio offline:** o publicador toca em "Enviar" no dia 6, sem internet, e o celular só sincroniza no dia 8. O envio vale pela hora do **servidor** (fica em atraso) ou pela do **aparelho** (fica no prazo)? A hora do aparelho pode ser alterada pelo usuário. Sugestão: servidor, com uma tolerância ⚙ de até 24h quando o aparelho registrou o envio antes do prazo, e a decisão final do SG.
