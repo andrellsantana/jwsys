@@ -17,27 +17,27 @@
 
 ## Decisões
 - Q-01: o ajudante não tem nenhum poder; é só um registro.
-- Q-02 e Q-03: ativação por QR individual (RN-002); troca de aparelho = novo QR.
-- Q-04: faixas confirmadas; meta proporcional (RN-054 e RN-057).
+- Q-02 e Q-03: ativação por QR individual (NUC-001); troca de aparelho = novo QR.
+- Q-04: faixas confirmadas; meta proporcional (ATV-032 e ATV-035).
 - Infraestrutura: GCP + Firebase (ADR-001 aceito).
-- Q-05: o tardio aceito conta para o mês original (status e S-21), com data registrada, e entra no próximo relatório da congregação. O mês já fechado não muda (RN-032).
-- Q-06: a reabertura da congregação vale só para o secretário; os grupos usam a liberação temporária (RN-031).
+- Q-05: o tardio aceito conta para o mês original (status e S-21), com data registrada, e entra no próximo relatório da congregação. O mês já fechado não muda (ATV-021).
+- Q-06: a reabertura da congregação vale só para o secretário; os grupos usam a liberação temporária (ATV-020).
 - Q-07: domínio próprio só na produção; até lá, *.web.app.
-- Q-08: S-205b analisado (RN-040).
+- Q-08: S-205b analisado (ATV-022).
 
 ## Rodada 3
-- ✅ **Q-10 Bloqueio do dia 7:** a interpretação do RN-003a está correta? Ou, a partir do dia 7, **todos** os relatórios do mês (inclusive os enviados no prazo) passam a exigir aprovação explícita do SG?
+- ✅ **Q-10 Bloqueio do dia 7:** a interpretação do ATV-003 está correta? Ou, a partir do dia 7, **todos** os relatórios do mês (inclusive os enviados no prazo) passam a exigir aprovação explícita do SG?
 - ✅ **Q-11 S-21 de 2026:** os PDFs foram preenchidos **digitalmente** (com campos) ou são **digitalizações de papel**? Digitalização exige OCR e revisão manual.
 - ✅ **Q-12 Petição em papel:** anexar a digitalização da petição em papel? Isso usa o Cloud Storage em São Paulo, com custo de centavos.
 - ✅ **Q-13 Atraso após o fechamento do grupo:** um envio em atraso que chega entre os dias 16 e 31, com o grupo já fechado: o SG aprova sem precisar de liberação temporária? E se o mês já estiver fechado na congregação (depois do dia 20), entra como tardio no próximo relatório?
-- Decisões da rodada 3: Q-10 → RN-003 e RN-003a (aprovação só a partir do dia 7; os não identificados aguardam conciliação). Q-12 → RN-046 (anexo obrigatório). Q-13 → RN-024 (fila para o próximo ciclo).
+- Decisões da rodada 3: Q-10 → ATV-002 e ATV-003 (aprovação só a partir do dia 7; os não identificados aguardam conciliação). Q-12 → ATV-027 (anexo obrigatório). Q-13 → ATV-017 (fila para o próximo ciclo).
 - ✅ **Q-14 Retroativo nos totais:** na 1ª rodada você disse que o retroativo aceito "deverá constar no próximo relatório da congregação". Agora ficou "somente no S-21". Ele entra nos totais do próximo relatório da congregação aberto, ou fica **apenas** no S-21?
-- Q-11: os S-21 de 2026 são PDFs editáveis preenchidos digitalmente. A extração é direta pelos campos, sem OCR (RN-091).
-- Q-14: o retroativo vai para o S-21 do mês original e entra nos totais do próximo relatório da congregação ainda aberto (RN-032).
+- Q-11: os S-21 de 2026 são PDFs editáveis preenchidos digitalmente. A extração é direta pelos campos, sem OCR (ATV-043).
+- Q-14: o retroativo vai para o S-21 do mês original e entra nos totais do próximo relatório da congregação ainda aberto (ATV-021).
 
 ## Rodada 4 (ADR-002)
 - ✅ **Q-15 Envio offline:** o publicador toca em "Enviar" no dia 6, sem internet, e o celular só sincroniza no dia 8. O envio vale pela hora do **servidor** (fica em atraso) ou pela do **aparelho** (fica no prazo)? A hora do aparelho pode ser alterada pelo usuário. Sugestão: servidor, com uma tolerância ⚙ de até 24h quando o aparelho registrou o envio antes do prazo, e a decisão final do SG.
 - ✅ **Q-16 Conflito de interesse:** o SG é publicador do próprio grupo. Quem aprova o relatório **em atraso, retroativo ou reenvio do próprio SG**: ele mesmo, o secretário ou outro ancião? E quando o secretário é o SG?
 - ✅ **Q-17 Histórico de quem entrou no grupo:** o SG do Grupo 4 deve ver os relatórios de Claudia de quando ela estava no Grupo 2? Pela regra atual, não: esses meses continuam pertencendo ao Grupo 2.
-- Q-15: hora do servidor + tolerância de 24h com a marca "offline no prazo"; o SG decide (RN-009a).
-- Q-16: o SG aprova os próprios envios (RN-037). Q-17: não vê os relatórios de outro grupo, só o histórico de status (RN-036).
+- Q-15: hora do servidor + tolerância de 24h com a marca "offline no prazo"; o SG decide (ATV-010).
+- Q-16: o SG aprova os próprios envios (ATV-018). Q-17: não vê os relatórios de outro grupo, só o histórico de status (CAD-002).

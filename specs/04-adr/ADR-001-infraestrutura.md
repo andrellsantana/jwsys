@@ -21,12 +21,12 @@
 | Camada | Tecnologia |
 |---|---|
 | PWA | React + Vite + TypeScript, servida pelo **Firebase Hosting** |
-| Offline / fila de envio (RN-009) | Persistência offline do SDK do Firestore (IndexedDB) |
+| Offline / fila de envio (ATV-009) | Persistência offline do SDK do Firestore (IndexedDB) |
 | Banco | **Cloud Firestore** em modo nativo, `southamerica-east1` |
 | Segurança | **Firestore Security Rules**: isolamento por grupo, imutabilidade de envios e travas de fechamento. Testadas com o Emulator Suite. |
 | Backend | **Cloud Functions for Firebase (2ª geração, roda em Cloud Run)** em TypeScript: ativação por QR, aprovações, fechamentos, totais pré-calculados, PDFs do S-21 e do S-205b preenchidos sem achatar (`pdf-lib`), importação de S-21 |
 | Jobs | Uma única função agendada diária (Cloud Scheduler, 1 de 3 tarefas grátis) que despacha: fechamento do dia 16, fim de liberações temporárias, recálculo de status e expurgo |
-| Auth do publicador | O QR de uso único (RN-002) chama uma função que emite um *custom token*. O aparelho fica logado de forma persistente, sem senha. |
+| Auth do publicador | O QR de uso único (NUC-001) chama uma função que emite um *custom token*. O aparelho fica logado de forma persistente, sem senha. |
 | Auth da equipe (SG, secretário, CS) | Login Google ou link por e-mail. **MFA TOTP** para o secretário (Identity Platform, dentro da cota grátis). |
 | Backup | Exportação agendada do Firestore para um bucket no Cloud Storage em `southamerica-east1`, com regra de ciclo de vida (custo de centavos) |
 | Testes | Vitest (unidade), Firebase Emulator Suite (regras e funções), Playwright (E2E) |
