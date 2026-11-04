@@ -7,7 +7,7 @@ Decisões de 04/11/2026. Acesso restrito aos membros da CS (CAD).
 - Fila de petições pendentes: publicador, **grupo do peticionário**, meses ou "continuamente" e data.
 - A petição é exibida como o S-205b original (ATV-013).
 - Os 3 critérios da comissão aparecem **só listados, em letra pequena**, como no S-205b, sem caixas para marcar.
-- Cada membro (coordenador, secretário, superintendente de serviço) aprova **em separado**, e a tela mostra o progresso ("2 de 3 aprovações"). Recusa com motivo (ATV-022a).
+- Cada membro (coordenador, secretário, superintendente de serviço) aprova **em separado**, e a tela mostra o progresso ("2 de 3 aprovações") e a **lista dos 3 membros com o papel de cada um** e a situação: "✓ Aprovou em dd/mm/aaaa" ou "Pendente". O botão diz em que papel a pessoa aprova (ex.: "Aprovar como superintendente de serviço"). Recusa com motivo (ATV-022a).
 - Petições em papel verificadas automaticamente aparecem com a marca "papel verificado" e a imagem (ATV-027a).
 - Petições canceladas automaticamente (ATV-025) aparecem com o botão "Reativar".
 
@@ -15,3 +15,6 @@ Decisões de 04/11/2026. Acesso restrito aos membros da CS (CAD).
 - **Durante o ano:** por pioneiro, horas de campo acumuladas, crédito, meta proporcional e média mensal necessária (sempre sobre 600h), com um indicador de tendência.
 - **Fim do ano:** lista com os filtros **Continua · Análise da CS · Cancelamento sugerido**, deixando explícito quando a pessoa só atinge o limite **por causa do crédito** (ATV-032).
 - Pioneiros enfermos aparecem separados, sem exigência de horas.
+
+## UX-CS-003 Nome no menu
+- O perfil aparece no menu como **"Comissão de Serviço"**, nunca abreviado.

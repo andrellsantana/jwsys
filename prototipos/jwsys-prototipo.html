@@ -209,7 +209,7 @@ nav.side button[aria-current="true"]{background:var(--accent-soft);color:var(--a
       <button data-pal="areia" style="background:#a8775a" aria-label="Areia" title="Areia"></button>
       <button data-pal="grafite" style="background:#56636f" aria-label="Grafite" title="Grafite"></button>
     </div><nav class="roles" aria-label="Perfil">
-    <a href="#publicador">Publicador</a><a href="#sg">Superintendente</a><a href="#secretario">Secretário</a><a href="#cs">Comissão</a>
+    <a href="#publicador">Publicador</a><a href="#sg">Superintendente</a><a href="#secretario">Secretário</a><a href="#cs">Comissão de Serviço</a>
   </nav>
 </div></header>
 <main class="wrap" id="app"></main>
@@ -511,14 +511,17 @@ function renderSec(){
 /* =================== COMISSÃO =================== */
 let csTab='pet', faixa='';
 const apur=[['João Batista',12,'600','560',588,14,'Continua'],['Marta Gomes',6,'300','280',262,24,'Análise da CS'],['Sérgio Prado',12,'600','560',512,10,'Cancelamento sugerido'],['Elisa Torres',12,'600','560',611,0,'Continua'],['Rui Campos (enfermo)',12,'—','—',180,0,'Sem exigência']];
-let aprov={Roberto:2,Lucia:1};
+const membrosCS=[['coord','Antônio Ferreira','Coordenador do corpo de anciãos'],['sec','Carlos Mendes','Secretário'],['ss','Paulo Reis','Superintendente de serviço']];
+const EU='ss';
+let aprov={Roberto:{coord:'29/10/2026',sec:'30/10/2026'},Lucia:{coord:'03/11/2026'}};
 function renderCS(){
   let b='';
   if(csTab==='pet'){
     b=[['Roberto','Roberto Lima','Novembro e dezembro/2026','Pedido em 28/10/2026','Grupo 2'],['Lucia','Lúcia Martins','Continuamente, a partir de janeiro/2027','Pedido em 02/11/2026','Grupo 4']].map(p=>`<article class="pcard"><div class="row" style="justify-content:space-between"><b>${p[1]}</b><span class="pill info">Pioneiro auxiliar · S-205b</span></div><div class="meta"><b>${p[4]}</b> · ${p[2]} · ${p[3]}</div>
-      <div class="row"><div class="prog" aria-label="${aprov[p[0]]} de 3 aprovações">${[0,1,2].map(i=>`<i class="${i<aprov[p[0]]?'on':''}"></i>`).join('')}</div><span class="meta">${aprov[p[0]]} de 3 aprovações (coordenador, secretário, superint. de serviço)</span></div>
+      <div class="row"><div class="prog" aria-hidden="true">${membrosCS.map(m=>`<i class="${aprov[p[0]][m[0]]?'on':''}"></i>`).join('')}</div><span class="meta">${Object.keys(aprov[p[0]]).length} de 3 aprovações</span></div>
+      <ul class="list" style="list-style:none;margin:0;padding:0;gap:4px" aria-label="Aprovações da Comissão de Serviço">${membrosCS.map(m=>{const d=aprov[p[0]][m[0]];return `<li class="row" style="justify-content:space-between;font-size:.88em;border-top:1px solid var(--line);padding-top:4px"><span><b>${m[1]}</b>${m[0]===EU?' (você)':''} <span class="hint">· ${m[2]}</span></span>${d?`<span class="pill ok">✓ Aprovou em ${d}</span>`:'<span class="pill warn">Pendente</span>'}</li>`}).join('')}</ul>
       <ol class="hint" style="margin:0;padding-left:1.2em;font-size:.75em"><li>O peticionário é um bom exemplo de vida cristã, tendo boa reputação moral?</li><li>Pessoas repreendidas ou readmitidas nos últimos 12 meses ou sob restrições não se qualificam.</li><li>O superintendente do grupo do peticionário foi consultado?</li></ol>
-      <div class="row"><button class="btn ok" data-ap="${p[0]}">Aprovar (minha parte)</button><button class="btn bad" data-x>Recusar</button></div></article>`).join('')+
+      <div class="row">${aprov[p[0]][EU]?'<span class="hint">Você já aprovou esta petição.</span>':`<button class="btn ok" data-ap="${p[0]}">Aprovar como superintendente de serviço</button>`}<button class="btn bad" data-x>Recusar</button></div></article>`).join('')+
       `<article class="pcard"><div class="row" style="justify-content:space-between"><b>Ana Souza</b><span class="pill bad">Cancelada automaticamente</span></div><div class="meta"><b>Grupo 3</b> · Contínua desde set/2026 · 22h em outubro (meta 30h)</div><div class="row"><button class="btn" data-x>Reativar</button></div></article>`;
     b=`<p class="sub">S-205b · Petição para o Serviço de <b>Pioneiro Auxiliar</b>. Petições de pioneiro regular não passam por esta fila.</p><div class="pend">${b}</div>`;
   } else {
@@ -527,11 +530,11 @@ function renderCS(){
     <div class="tablewrap"><table class="grid cards"><thead><tr><th>Pioneiro</th><th>Meses</th><th>Meta</th><th>Limite</th><th>Campo</th><th>Crédito</th><th>Faixa</th></tr></thead><tbody>${r.map(a=>`<tr><td data-l="Pioneiro"><b>${a[0]}</b></td><td data-l="Meses" class="n">${a[1]}</td><td data-l="Meta" class="n">${a[2]}</td><td data-l="Limite" class="n">${a[3]}</td><td data-l="Campo" class="n">${a[4]}</td><td data-l="Crédito" class="n">${a[5]}</td><td data-l="Faixa"><span class="pill ${a[6]==='Continua'?'ok':a[6]==='Análise da CS'?'warn':a[6]==='Sem exigência'?'info':'bad'}">${a[6]}</span>${a[6]==='Análise da CS'&&a[4]+a[5]>=+a[3]?'<div class="meta" style="font-size:.8em">atinge o limite só com crédito</div>':''}</td></tr>`).join('')}</tbody></table></div>
     <p class="sub" style="margin-top:8px">Ano de serviço 2026 (fechado) · meta proporcional para quem não foi pioneiro o ano todo.</p>`;
   }
-  app.innerHTML=`<div class="proto">Perfil: membro da Comissão de Serviço. Cada membro aprova a sua parte.</div><h1>Comissão de Serviço</h1>
+  app.innerHTML=`<div class="proto">Perfil: Paulo Reis, superintendente de serviço e membro da Comissão de Serviço. Cada membro aprova a sua parte.</div><h1>Comissão de Serviço</h1>
   <div class="tabs" role="tablist"><button role="tab" aria-selected="${csTab==='pet'}" data-cs="pet">Petições de pioneiro auxiliar<span class="pill warn">3</span></button><button role="tab" aria-selected="${csTab==='apu'}" data-cs="apu">Apuração dos pioneiros regulares</button></div>${b}`;
   app.querySelectorAll('[data-cs]').forEach(x=>x.onclick=()=>{csTab=x.dataset.cs;renderCS()});
   app.querySelectorAll('[data-fx]').forEach(x=>x.onclick=()=>{faixa=x.dataset.fx;renderCS()});
-  app.querySelectorAll('[data-ap]').forEach(x=>x.onclick=()=>{const k=x.dataset.ap;aprov[k]=Math.min(3,aprov[k]+1);toast(aprov[k]===3?'Petição aprovada pelas 3 partes':'Sua aprovação foi registrada');renderCS()});
+  app.querySelectorAll('[data-ap]').forEach(x=>x.onclick=()=>{const k=x.dataset.ap;aprov[k][EU]='04/11/2026';toast(Object.keys(aprov[k]).length===3?'Petição aprovada pelos 3 membros':'Sua aprovação foi registrada');renderCS()});
   app.querySelectorAll('[data-x]').forEach(x=>x.onclick=()=>{x.closest('.pcard').remove();toast('Registrado')});
 }
 
