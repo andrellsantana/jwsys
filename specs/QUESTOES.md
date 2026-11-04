@@ -58,3 +58,4 @@
 - Q-23: os anciãos não têm acesso especial no MVP; os papéis são concedidos conforme as funcionalidades forem desenvolvidas e conforme a necessidade (ADR-003 §6).
 - Q-24: o master vê tudo, com termo de confidencialidade obrigatório (ADR-003 §7).
 - Q-25: desconecta só ao perder poder; ganhar poder ou trocar o papel na tela não desconecta (ADR-003 §8).
+- **Q-26 Revogação do consentimento:** ver specs/03-modulos/nucleo/spec.md (H-NUC-08).
